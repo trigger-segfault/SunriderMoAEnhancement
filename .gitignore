@@ -34,6 +34,7 @@ MANIFEST
 
 # make.py
 deploydir.txt
+rpatool
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
