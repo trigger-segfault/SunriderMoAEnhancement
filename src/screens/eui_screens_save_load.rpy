@@ -132,7 +132,7 @@ init +2:
                                             $ description = ""
                                         else:
                                             $ description = "% 2s. %s\n%s" % (
-                                                FileSlotName(eui.file_slot(i), eui.EUI_FILE_COUNT),
+                                                FileSlotName(eui.file_name_slot(i), eui.EUI_FILE_COUNT),
                                                 FileTime(eui.file_slot(i), page=eui.file_page(i), empty=_("Empty Slot.")),
                                                 FileSaveName(eui.file_slot(i), page=eui.file_page(i)))
                                         
@@ -282,7 +282,7 @@ init +2:
                                             $ description = ""
                                         else:
                                             $ description = "% 2s. %s\n%s" % (
-                                                FileSlotName(eui.file_slot(i), eui.MOA_FILE_COUNT),
+                                                FileSlotName(eui.file_name_slot(i), eui.EUI_FILE_COUNT),
                                                 FileTime(eui.file_slot(i), page=eui.file_page(i), empty=_("Empty Slot.")),
                                                 FileSaveName(eui.file_slot(i), page=eui.file_page(i)))
                                         

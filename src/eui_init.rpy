@@ -28,7 +28,7 @@ init +1 python:
     #except:
     #    pass
 
-    style.say_vbox.xfill = False
+    #style.say_vbox.xfill = False
 
 init +1:
     image ctc:

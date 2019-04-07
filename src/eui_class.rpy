@@ -166,6 +166,11 @@ init python:
                 return (i - 1) % self.MOA_FILE_COUNT + 1
             else:
                 return i
+        def file_name_slot(self,i):
+            if self.is_file_page():
+                return (i - 1) % self.EUI_FILE_COUNT + 1
+            else:
+                return i
         def file_range(self):
             try:
                 start = (int(FilePageName()) - 1) * self.EUI_FILE_COUNT + 1;

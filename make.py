@@ -111,6 +111,9 @@ def renpy_make_run(args):
     global modules
     global rpas
 
+    if not os.path.isdir(outdir):
+        os.mkdir(outdir)
+
     modules = [RenPyMakeModule()]
     modules += ([
         RenPyMakeModule(d) for d in os.listdir(srcdir)

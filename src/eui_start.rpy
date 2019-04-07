@@ -12,7 +12,8 @@ init python:
             # Hackish way to guarantee the gameprefs screen is on the right tab
             eui.option_show = 3
         if label == 'start' or label == 'after_load':
-            emod = EnhancementMod()
+            if not hasattr(store,'emod'):
+                emod = EnhancementMod()
             #renpy.show_screen('quick_menu')
             
     config.label_callback = eui_label_callback

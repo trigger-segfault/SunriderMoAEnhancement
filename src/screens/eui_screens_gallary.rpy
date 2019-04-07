@@ -15,11 +15,12 @@ init +2:
         #    activate_sound "sound/button1.ogg"
         #    focus_mask None
         vbox:
-
-            xpos 1260 ypos 230
+            spacing 10
+            xpos 1260 ypos 185
             #xpos 1260 ypos 250
             xsize 470
-            ysize 740
+            ysize 863
+            #ysize 740
             
             
             if renpy.seen_label("aftercredits7") == True:
@@ -301,7 +302,8 @@ init +2:
                         $ is_label = renpy.has_label(scenes[i - 1].jumpLoc)
                         $ eui_scene = scenes[i-1]
 
-                        button:
+                        frame:
+                            style "default"
 
                             #imagebutton:
                             #    idle "UI/bonus_song_base.png"
@@ -360,7 +362,8 @@ init +2:
                         $ is_label = renpy.has_label(addon_scenes[i - 1].jumpLoc)
                         $ eui_addon = addon_scenes[i-1]
 
-                        button:
+                        frame:
+                            style "default"
 
                             #imagebutton:
                             #    idle "UI/bonus_song_base.png"
