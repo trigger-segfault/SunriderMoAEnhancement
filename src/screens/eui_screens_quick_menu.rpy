@@ -79,7 +79,7 @@ init +2:
                 hover tr_hoverglow("UI/menu_save.png")
                 
                 activate_sound "sound/button1.ogg"
-                action Show("save")
+                action Show("save"),FileTakeScreenshot()
                 #action If(show_save, true=(Hide("save"),SetVariable("show_save",False)), false=(Show("save"),SetVariable("show_save",True)))
                 at tr_sidemenu(150)
             imagebutton:

@@ -7,14 +7,19 @@ init +2:
     screen history:
         zorder 500
         
-        add "UI/mainmenu_back.jpg"
+        #if not renpy.showing("bg cera") is True:
+        #    $ renpy.scene()
+        #    # Fade in so that we don't see this for a split second before the splash screen
+        #    $ renpy.show("bg cera")#, [tr_fadein_2(1.0)])
+
+        add "Space/cera.jpg" at tr_fadein_2(0.2)
         
-        add "UI/input_back.png" at tr_fadein(1):
+        add "UI/input_back.png" at tr_fadein_2(1):
             xpos 375 ypos 107
             
         default htt = Tooltip("")
         
-        imagebutton at tr_fadein(1):
+        imagebutton at tr_fadein_2(1):
             xpos 1300 ypos 125
             idle "UI/back.png"
             hover tr_hoverglow("UI/back.png")
@@ -23,7 +28,7 @@ init +2:
             #action Show("main_menu"),Hide("history")
             action Hide("history")
         
-        # Nothing to import
+        # No Import Feature for First Arrival pre MoA.
         #imagebutton at tr_fadein(1):
         #    xpos 1110 ypos 125
         #    idle "UI/import.png"
@@ -32,20 +37,20 @@ init +2:
         #    activate_sound "sound/button1.ogg"
         #    action SetVariable("customstat",False),Start()
 
-        frame at tr_fadein(1):
+        frame at tr_fadein_2(1):
             area (425, 207, 2000, 740)
             background None
             viewport id "eui_history_box":
                 draggable False
                 mousewheel True
                 child_size (1800,25+(eui.optpoint*41))
-                frame at tr_fadein(1):
+                frame at tr_fadein_2(1):
                     background None
 
                     for item in eui.setoptions:
                         if item[0] == 1: # Is an option title
                             if eui.his_eval(item[3]):
-                                imagebutton at tr_fadein(0.2):
+                                imagebutton at tr_fadein_2(0.2):
                                     xpos eui.optionsxpos[eui.setoptions.index(item)] ypos eui.optionsypos[eui.setoptions.index(item)]
                                     idle "UI/input_plotback.png"
                                     hover "UI/input_plotback.png"
@@ -94,11 +99,13 @@ init +2:
                                         
                     vbar value YScrollValue("eui_history_box") xpos 1070
 
-        if eui.show_confirm():
-            imagebutton at tr_fadein(0.2):
-                xpos 805 ypos 125
-                idle "UI/confirm.png"
-                hover tr_hoverglow("UI/confirm.png")
-                hover_sound "sound/hover1.ogg"
-                activate_sound "sound/ButtonClick.ogg"
-                action Hide("history"),Start("eui_skiptomaskofarcadius")
+        # Fix confirm button fading in too fast if already visible when showing this screen
+        fixed at  tr_fadein_2(1):
+            if eui.show_confirm():
+                imagebutton at tr_fadein_2(0.2):
+                    xpos 805 ypos 125
+                    idle "UI/confirm.png"
+                    hover tr_hoverglow("UI/confirm.png")
+                    hover_sound "sound/hover1.ogg"
+                    activate_sound "sound/ButtonClick.ogg"
+                    action Hide("history"),Start("eui_skiptomaskofarcadius")

@@ -1,15 +1,4 @@
 init +1 python:
-    #style.window.background = Solid((0, 0, 128, 128))
-    #style.window.xpadding = 10
-    #style.window.ypadding = 5
-    #style.window.xmargin = 10
-    #style.window.ymargin = 5
-    #style.window.xfill = True
-    #style.window.yfill = False
-    #style.window.xminimum = 0 # Includes margins and padding.
-    #style.window.yminimum = 150 # Includes margins and padding.
-    #style.window.clear()
-
     #########################################
     ## These settings let you customize the window containing the
     ## dialogue and narration, by replacing it with an image.
@@ -98,11 +87,86 @@ init +1 python:
         ## various styles, so if we want to change them, we should
         ## do so below.
         )
-        
+
+    #########################################
+    ## These let you customize the default font used for text in Ren'Py.
+
+    ## The file containing the default font.
+
+    # Don't set because it will mess up a small selection of unmodified UIs.
     #style.default.font = "Fonts/ShareTech-Regular.ttf"
 
     ## The default size of text.
 
+    # Don't set because it will mess up a small selection of unmodified UIs.
     #style.default.size = 30
 
+    # Prevent text from performing subtitle wrapping which looks terrible when not centered
     style.default.layout = "tex"
+
+    #########################################
+    ## Console styles
+
+    style._console_text.size = 28
+    style._console_text.font = "Fonts/ShareTech-Regular.ttf"
+
+    #########################################
+    ## Transitions.
+
+    ## Used when entering the game menu from the game.
+    config.enter_transition = None
+
+    ## Used when exiting the game menu to the game.
+    config.exit_transition = dissolvemedium
+
+    ## Used between screens of the game menu.
+    config.intra_transition = None
+
+    ## Used when entering the game menu from the main menu.
+    config.main_game_transition = None
+
+    ## Used when returning to the main menu from the game.
+    config.game_main_transition = None
+
+    ## Used when entering the main menu from the splashscreen.
+    config.end_splash_transition = None
+
+    ## Used when entering the main menu after the game has ended.
+    config.end_game_transition = None
+
+    ## Used when a game is loaded.
+    config.after_load_transition = None
+
+    ## Used when the window is shown.
+    config.window_show_transition = None
+
+    ## Used when the window is hidden.
+    config.window_hide_transition = None
+
+    ## Used when showing NVL-mode text directly after ADV-mode text.
+    config.adv_nvl_transition = dissolve
+
+    ## Used when showing ADV-mode text directly after NVL-mode text.
+    config.nvl_adv_transition = dissolve
+
+    ## Used when yesno is shown.
+    config.enter_yesno_transition = None
+
+    ## Used when the yesno is hidden.
+    config.exit_yesno_transition = None
+
+    ## Used when entering a replay
+    config.enter_replay_transition = None
+
+    ## Used when exiting a replay
+    config.exit_replay_transition = None
+
+    ## Used when the image is changed by a say statement with image attributes.
+    config.say_attribute_transition = None
+
+    ######################################################################
+    # First up, we define a bunch of configuration variables, which the
+    # user can change.
+    
+    # What we do on a quit, by default.
+    #config.quit_action = ui.gamemenus("_quit_prompt")

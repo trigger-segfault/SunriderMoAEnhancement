@@ -95,8 +95,6 @@ init +2:
 
                 $ columns = 4
                 $ rows = 3#50
-                $ moa_columns = 1
-                $ moa_rows = 8
                 hbox:
                     area (26, 92, 1148, 517)
                     viewport:
@@ -243,9 +241,6 @@ init +2:
 
                 $ columns = 4
                 $ rows = 3#50
-                $ moa_columns = 1
-                $ moa_rows = 8
-
                 hbox:
                     area (26, 92, 1148, 517)
                     viewport:

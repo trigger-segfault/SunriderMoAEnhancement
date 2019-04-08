@@ -7,6 +7,15 @@ init -1:
             pause ddelay
             ease 0.3 alpha 0
 
+    # Fade out faster
+    transform tr_fadein_2(ddelay):
+        alpha 0
+        pause ddelay
+        ease 0.3 alpha 1
+        on hide:
+            #pause ddelay
+            ease 0.3 alpha 0
+
     transform tr_menubutton(ddelay,xxpos):
         alpha 0
         pause ddelay

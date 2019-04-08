@@ -19,7 +19,7 @@ init python:
       
         ### Important Variables
 
-        # The version of this PureVN mod file
+        # The version of this MoA Enhancement mod file
         @property
         def version(self):
             global emod
@@ -27,7 +27,7 @@ init python:
 
 #region ### Constructor
 
-        # The current version of the PureVN class that you loaded the save from
+        # The current version of the MoA Enhancement class that you loaded the save from
         def __init__(self):
 
             self.show_charactercg = False
