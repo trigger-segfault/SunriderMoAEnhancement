@@ -94,12 +94,12 @@ init +1 python:
     ## The file containing the default font.
 
     # Don't set because it will mess up a small selection of unmodified UIs.
-    #style.default.font = "Fonts/ShareTech-Regular.ttf"
+    style.default.font = "Fonts/ShareTech-Regular.ttf"
 
     ## The default size of text.
 
     # Don't set because it will mess up a small selection of unmodified UIs.
-    #style.default.size = 30
+    style.default.size = 30
 
     # Prevent text from performing subtitle wrapping which looks terrible when not centered
     style.default.layout = "tex"

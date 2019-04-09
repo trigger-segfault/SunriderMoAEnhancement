@@ -1,45 +1,59 @@
 init +1 python:
-    #def emod_setup():
-    #    global eui
+    # Keep track of the old callback so it can still be called
+    eui_original_label_callback = config.label_callback
 
-    # Global var bto remember UI usage settings, such as options tab
-    eui = EnhancementModUI()
+    def eui_label_callback(label, abnormal):
+        # Make sure to call the original label callback too
+        if eui_original_label_callback != None:
+            eui_original_label_callback(label, abnormal)
 
-    #emod_setup()
-    #eui = EnhancementModUI()
-    #show_sidemenu = False
-    #option_show = 1
-    #tty = -5000
-    #english_battle_voices = True
+        # Update if the quick menu is visible or not
+        eui.manage_quick_menu_visibility(label)
+
+    config.label_callback = eui_label_callback
+
+init +1 python:
     if persistent.eui_file_page == None:
         persistent.eui_file_page = 1
     config.thumbnail_width = 266
     config.thumbnail_height = 150
-    #eui_english_battle_voices = True
+    #eui_history_box = 0
 
-    #eui = None
-    #if not hasattr(store,'eui') or eui is None:
-    #eui = EnhancementModUI()
-    #if not hasattr(store,'eui'):
-    #    eui = EnhancementModUI()
-    #try:
-    #    int(FilePageName())
-    #    FilePage(int(persistent.eui_file_page))
-    #except:
-    #    pass
-
-    #style.say_vbox.xfill = False
+#init -1 python:
+#    config.overlay_screens.append("quick_menu")
 
 init +1:
+    define eui_battle_voice_option = False
+    define eui_battle_voice_object = None
+    define eui_battle_voice_field = None
+
     image ctc:
         "UI/ctc.png"
         xpos 1800 ypos 1000
 
-### History Init
+    #style upgrade_text is text:
+    #    font "Menu/euphemia.ttf"
+    #    size 22
+    #style upgrade_textbutton is button:
+    #    font "Menu/euphemia.ttf"
+        #size 22
+    style upgrade is default:
+        font "Menu/euphemia.ttf"
+        size 22
+    style upgrade_label is label:
+        font "Menu/euphemia.ttf"
+        size 22
+    style upgrade_text is text:
+        font "Menu/euphemia.ttf"
+        size 22
+    style upgrade_textbutton is button:
+        font "Menu/euphemia.ttf"
+        #text_size 22
+    style upgrade_button_text is button_text:
+        font "Menu/euphemia.ttf"
+        size 22
 
-init python:
-    #httx = 0
-    #htty = -5000
-    eui_history_box = 0
-#init 100 python:
-#    eui.setoptions_ypos(setoptions)
+    #python:
+    #    style.upgrade.set_parent('default')
+    #    style.upgrade.font = "Menu/euphemia.ttf"
+    #    style.upgrade.size = 22

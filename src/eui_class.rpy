@@ -1,17 +1,4 @@
 init python:
-    # Declare the Enhancement Mod Game-specific settings
-    class EnhancementMod(object):
-
-        # The version of this Enhancement mod file
-        @property
-        def version(self):
-            self.current_version = self.version
-
-            return 'v0.1.0.0' # Constant
-
-        def __init__(self):
-            self.english_battle_voices = True
-
     # Declare the Enhancement Mod UI variables that are not important to remember
     # Extend _object so we're not placed in the Ren'Py store.
     # Our variables will be remembered for the lifespan of the game window
@@ -19,11 +6,10 @@ init python:
       
         ### Important Variables
 
-        # The version of this MoA Enhancement mod file
+        # The version of this MoA Enhancement UI mod file
         @property
         def version(self):
-            global emod
-            return emod.version
+            return 'v0.0.0.1' # Constant
 
 #region ### Constructor
 
@@ -193,7 +179,7 @@ init python:
         def validate_spire(self):
             #global his_pactspire, his_capturetraffickers
             Confirm = True
-            if eui.his_pactspire == False and eui.his_capturetraffickers == None:
+            if self.his_pactspire == False and self.his_capturetraffickers == None:
                 Confirm = False
             return Confirm
             
@@ -261,3 +247,30 @@ init python:
             return eval(item.replace('his_', 'eui.his_'))
 
 #endregion
+
+#region ### Quick Menu Screen Helpers
+
+        # Makes sure the quick menu is visible and hidden at the right times
+        def manage_quick_menu_visibility(self, label):
+            # Make sure the quick menu is active when we start a campaign or addon
+            if label == 'initialize':
+                renpy.show_screen('quick_menu')
+
+            # Make sure the quick menu is shown after loading a game before Enhanced UI was added
+            if label == "after_load":
+                # The only time we don't show the quick menu is in the stores, hide it if we're in these screens
+                if renpy.get_screen("upgrade") or renpy.get_screen("store_union"):
+                    renpy.hide_screen('quick_menu')
+                elif not renpy.get_screen("quick_menu"):
+                    renpy.show_screen('quick_menu')
+
+            # The only time we don't show the quick menu is in the stores, hide it when we get to this label
+            if label == "allocatefunds" or label == "unionstore":
+                renpy.hide_screen('quick_menu')
+
+            # This is called when returning from either store, make sure to show the quick menu again
+            if label == 'dispatch' and not renpy.get_screen("quick_menu"):
+                renpy.show_screen('quick_menu')
+#endregion
+    
+    eui = EnhancementModUI()

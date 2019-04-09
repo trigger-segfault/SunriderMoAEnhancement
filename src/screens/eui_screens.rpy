@@ -13,7 +13,7 @@ init +2:
         default side_image = None
         default two_window = False
         zorder 100
-        
+
         add "UI/messagebox.png":
             yanchor 1.0 ypos 1.0
 
@@ -69,7 +69,7 @@ init +2:
                     #        outlines [(2, "#000000", 2, 2),(1, "#272727", 0, 0) ] 
 
         # Use the quick menu.
-        use quick_menu
+        #use quick_menu
 
     ##############################################################################
     # Choice
@@ -129,9 +129,18 @@ init +2:
                 
             text item[0] at tr_decision(0.2*items.index(item)):
                 text_align 0.5 xanchor 0.5 ypos pointBase+0.04 +(0.15*items.index(item))
-                size 40
-                outlines [ (4, "#282828", 0, 0) ]  
-        use quick_menu
+                font "Fonts/ShareTech-Regular.ttf"
+                #TODO: WE NEED WRAPPING!
+                if len(item[0]) >= 200:
+                    size 25
+                    outlines [ (2, "#282828", 0, 0) ]
+                elif len(item[0]) >= 100:
+                    size 32
+                    outlines [ (3, "#282828", 0, 0) ]
+                else:
+                    size 40
+                    outlines [ (4, "#282828", 0, 0) ]  
+        #use quick_menu
 
     ##############################################################################
     # Input
@@ -147,7 +156,7 @@ init +2:
             text prompt style "input_prompt"
             input id "input" style "input_text"
 
-        use quick_menu
+        #use quick_menu
 
     ##############################################################################
     # Nvl
@@ -198,7 +207,7 @@ init +2:
 
         add SideImage() xalign 0.0 yalign 1.0
 
-        use quick_menu
+        #use quick_menu
 
     ##############################################################################
     # Yes/No Prompt

@@ -59,9 +59,7 @@ label eui_skiptomaskofarcadius:
 
     #if store.Difficulty == 3:
     $ show_message('Please select your difficulty.',0.5,0.8,2)
-    # Option 3 is the game preferences tab
-    $ eui.option_show = 3
-    show screen preferences
+    show screen gameprefs
 
     window hide
 
@@ -73,13 +71,9 @@ label eui_skiptomaskofarcadius:
     $ renpy.pause (2.0)
 
     # This action before the jump is the same as passing True as a parameter
-     # to beachepisode, but we can't do that with jump so we do it here.
+    # to beachepisode, but we can't do that with jump so we do it here.
     $ BM.lowest_difficulty = store.Difficulty
     jump beachepisode
-    #call beachepisode(True) from _call_beachepisode_eui
-    #(True)
-    #show screen eui_history
-    #pause
 
 label eui_beginstat:
     if eui.his_ceraflag == True:
