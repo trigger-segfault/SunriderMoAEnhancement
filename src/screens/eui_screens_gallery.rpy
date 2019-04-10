@@ -153,27 +153,37 @@ init +2:
             area (245,265,980,700)
             background None
             
+            $ eui_gallery_list = eui.tracks.getlist()
+            $ eui_gallery_rows = eui.gallary_rows(eui_gallery_list)
+
             viewport:
                 draggable True
                 mousewheel True
                 scrollbars "vertical"
-                child_size (920,1015)
+                child_size (920,eui_gallery_rows*169+1)
                 
-                grid 3 6:
+                grid 3 eui_gallery_rows:
                     
                     xfill True
                     yfill True
 
-                    for i in range(0,3*6):
-                        text ""
+                    for track in eui_gallery_list:
+                        add track.make_button()
+                    #for i in range(0,3*6):
+                    #    text ""
                     
-                grid 3 6:
+                grid 3 eui_gallery_rows:
                     
                     xfill True
                     yfill True
 
-                    for i in range(0,3*6):
-                        text ""
+                    for track in eui_gallery_list:
+                        add track.make_text()
+                    #for i in range(0,3*6):
+                    #    text ""
+            
+            $ del eui_gallery_list
+            $ del eui_gallery_rows
                             
 
     screen gallery_charactercg:
@@ -186,39 +196,47 @@ init +2:
             area (245,265,980,700)
             background None
             
-            if CENSOR == True:
+            #if CENSOR == True:
             
-                viewport:
-                    draggable True
-                    mousewheel True
-                    scrollbars "vertical"
-                    child_size (920,2369)
-                        
-                    grid 3 14:
-                        
-                        xfill True
-                        yfill True
+            $ eui_gallery_list = eui.chcg.getlist()
+            $ eui_gallery_rows = eui.gallary_rows(eui_gallery_list)
 
-                        # Call make_button to show a particular button.
+            viewport:
+                draggable True
+                mousewheel True
+                scrollbars "vertical"
+                child_size (920,eui_gallery_rows*169+1)
+                    
+                grid 3 eui_gallery_rows:
+                    
+                    xfill True
+                    yfill True
 
-                        for i in range(0,3*14):
-                            text ""
+                    # Call make_button to show a particular button.
 
-            if CENSOR == False:
+                    for cg in eui_gallery_list:
+                        add cg.make_button()
+                    #for i in range(0,3*14):
+                    #    text ""
+
+            # if CENSOR == False:
                 
-                viewport:
-                    draggable True
-                    mousewheel True
-                    scrollbars "vertical"
-                    child_size (920,2538)
+            #     viewport:
+            #         draggable True
+            #         mousewheel True
+            #         scrollbars "vertical"
+            #         child_size (920,2538)
                                 
-                    grid 3 15:
+            #         grid 3 15:
                         
-                        xfill True
-                        yfill True
+            #             xfill True
+            #             yfill True
 
-                        for i in range(0,3*15):
-                            text ""
+            #             for i in range(0,3*15):
+            #                 text ""
+            
+            $ del eui_gallery_list
+            $ del eui_gallery_rows
                         
 
 
@@ -232,19 +250,27 @@ init +2:
             area (245,265,980,700)
             background None
             
+            $ eui_gallery_list = eui.mccg.getlist()
+            $ eui_gallery_rows = eui.gallary_rows(eui_gallery_list)
+
             viewport:
                 draggable True
                 mousewheel True
                 scrollbars "vertical"
-                child_size (920,2370)
+                child_size (920,eui_gallery_rows*169+1)
         
-                grid 3 14:
+                grid 3 eui_gallery_rows:
 
                     xfill True
                     yfill True
 
-                    for i in range(0,3*14):
-                        text ""
+                    for cg in eui_gallery_list:
+                        add cg.make_button()
+                    #for i in range(0,3*14):
+                    #    text ""
+            
+            $ del eui_gallery_list
+            $ del eui_gallery_rows
 
 
     screen gallery_backgrounds:
@@ -257,19 +283,27 @@ init +2:
             area (245,265,980,700)
             background None
             
+            $ eui_gallery_list = eui.bg.getlist()
+            $ eui_gallery_rows = eui.gallary_rows(eui_gallery_list)
+
             viewport:
                 draggable True
                 mousewheel True
                 scrollbars "vertical"
-                child_size (920,2370)
+                child_size (920,eui_gallery_rows*169+1)
         
-                grid 3 14:
+                grid 3 eui_gallery_rows:
 
                     xfill True
                     yfill True
 
-                    for i in range(0,3*14):
-                        text ""
+                    for bg in eui_gallery_list:
+                        add bg.make_button()
+                    #for i in range(0,3*14):
+                    #    text ""
+            
+            $ del eui_gallery_list
+            $ del eui_gallery_rows
 
 
     screen gallery_deleted_scenes:

@@ -29,6 +29,8 @@ MANIFEST
 *.rpa
 *.rpyc
 
+/preview/unused/
+
 # Sunrider: Mask of Arcadius
 /sunrider/
 

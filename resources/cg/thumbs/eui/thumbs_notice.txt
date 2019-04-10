@@ -1,0 +1,3 @@
+Again, not the best case of having to include the CG, but thumb size is pretty measly.
+We use the "eui/" folder here so that we don't have to apply an "eui_" prefix to every file
+Each CG type is also in its own folder just to make managing them easier.

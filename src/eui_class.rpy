@@ -23,6 +23,15 @@ init python:
             self.show_chivos = False
             self.show_bonus = 0
 
+            self.mr = MusicRoom(channel='music', fadeout=1.0, fadein=0.0, loop=True, single_track=True, shuffle=False, stop_action=None)
+            self.gallery = Gallery()
+            self.gallery.transition = dissolve
+
+            self.chcg = EnhancementModCGGallery(self.gallery, "chcg")
+            self.mccg = EnhancementModCGGallery(self.gallery, "mccg")
+            self.bg = EnhancementModCGGallery(self.gallery, "bg")
+            self.tracks = EnhancementModMusicGallery(self.mr)
+
             self.show_sidemenu = False
             self.option_show = 1
             self.tty = -5000
@@ -119,10 +128,13 @@ init python:
 
 #endregion
 
+        def gallary_rows(self, list):
+            return max(int((len(list) + 2) / 3), 1)
 #region ### File Screen Helpers
 
         # Becuase file pages were normally 8 per page but we use 12 per page,
         # We need to keep the original page number when looking up saves.
+
 
         @property
         def MOA_FILE_COUNT(self):
