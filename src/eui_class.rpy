@@ -128,7 +128,7 @@ init python:
 
 #endregion
 
-        def gallary_rows(self, list):
+        def gallery_rows(self, list):
             return max(int((len(list) + 2) / 3), 1)
 #region ### File Screen Helpers
 
