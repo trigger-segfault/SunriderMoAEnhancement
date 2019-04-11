@@ -2,15 +2,28 @@
 init 11:
     # NSFW thumbs that *probably* shouldn't be in a GitHub repo
     if CENSOR == False:
-        image eui_thumb_cg_avascene = im.Scale("Censored/avasexcg.jpg", 288, 160)
+        image eui_thumb_cg_avascene = im.Scale("Censored/avasexcg.jpg", 288, 160, ypos=1)
             
-        image eui_thumb_cg_avacg2 = im.Scale("Censored/avasexcg2.jpg", 288, 160)
+        image eui_thumb_cg_avacg2 = im.Scale("Censored/avasexcg2.jpg", 288, 160, ypos=1)
 
-    image eui_thumb_cg_asagashower1 = im.Scale("CG/asagashower1.jpg", 288, 160)
+    image eui_thumb_cg_asagashower1 = im.Scale("CG/asagashower1.jpg", 288, 160, ypos=1)
 
-    image eui_thumb_border:
-        "cg/thumbs/eui/border.png"
-        xpos 12 # Dunno why this is offset by 12 pixels to the left
+    ###COMPOSITE CG
+    
+    image eui_cg_asaga_awaken_1 = im.Composite(
+        (1920, 1080),
+        (0, 0), "CG/blackjackawaken1.jpg",
+        (0, 0), "CG/asagaawaken1.png")
+        
+    image eui_cg_asaga_awaken_2 = im.Composite(
+        (1920, 1080),
+        (0, 0), "CG/blackjackawaken1.jpg",
+        (0, 0), "CG/asagaawaken2.png")
+
+    image eui_cg_asaga_awaken_3 = im.Composite(
+        (1920, 1080),
+        (0, 0), "CG/blackjackawaken2.jpg",
+        (0, 0), "CG/asagaawaken3.png")
 
 init 11 python:
 
@@ -41,7 +54,7 @@ init 11 python:
     eui.chcg.add("ryuvianbridge", ["cg_ryuvianbridge","cg_ryuvianbridge_red","cg_ryuvianbridge_empty"])
     eui.chcg.add("weddingcrash", ["cg_weddingcrash1","cg_weddingcrash2"])
     #eui.chcg.add("asagashower", ["cg_asagashower1","cg_asagashower2"], censor=True)
-    eui.chcg.add(["eui_thumb_cg_asagashower1"], ["cg_asagashower1","cg_asagashower2"], border=True) # No, it appears even when the censor is disabled, not NSFW. *shrug*
+    eui.chcg.add(["eui_thumb_cg_asagashower1"], ["cg_asagashower1","cg_asagashower2"], border=True) # No, it appears even when the censor is disabled, no censor. *shrug*
     eui.chcg.add("chigarateatimesad", ["cg_chigarateatime_sad","cg_chigarateatime_embarassed","cg_chigarateatime_happy"])
     eui.chcg.add("sola_beach", ["sola_beach","sola_beach_sad","sola_beach_surprise"])
     eui.chcg.add("chigarabeach", ["chigara_beach1","chigara_beach2","chigara_beach3"])
@@ -55,6 +68,7 @@ init 11 python:
     eui.chcg.add(["eui_thumb_cg_avacg2"], ["cg_avacg2"], censor=True, border=True)
     eui.chcg.add("shieldschigarahug", ["cg_shieldschigarahug"])
     eui.chcg.add("avaleverpull", ["cg_avaleverpull1","cg_avaleverpull2"])
+    eui.chcg.add("asagaawaken", ["eui_cg_asaga_awaken_1", "eui_cg_asaga_awaken_2", "eui_cg_asaga_awaken_3"], conditions="renpy.seen_image('cg_asaga_awaken 3')")
     #Todo: Get Asaga awaken working, figure out background used
     # ["cg_blackjack_awaken1", "cg_asaga_awaken 1"]
     # ["cg_blackjack_awaken1", "cg_asaga_awaken 2"]
@@ -62,6 +76,9 @@ init 11 python:
 
 
     #########MECHA CGS
+
+    eui.mccg.add_replay("weddingcrash", "replay_weddingcrash", conditions="renpy.seen_label('theweddingcrash')")
+    eui.mccg.add_replay("OP", "replay_op", conditions="True")
 
     ############BACKGROUNDS
 
@@ -136,7 +153,7 @@ init 11 python:
     eui.tracks.add("Dusty Universe", "Dusty_Universe")
     eui.tracks.add("El Prendimiento", "el_prendimiento")
     #TODO: Make "Firn" unlockable with "Firn_ED"
-    eui.tracks.add("Firn", "Firn")
+    eui.tracks.add("Firn", "Firn", conditions="eui.tracks.is_unlocked('Firn_ED')")
     eui.tracks.add("Firn (Credits)", "Firn_ED")
     eui.tracks.add("Grasping Some Beauty", "Grasping_Some_Beauty")
     eui.tracks.add("Harunokagayaki", "harunokagayaki")

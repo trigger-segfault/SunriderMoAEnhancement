@@ -154,7 +154,7 @@ init +2:
             background None
             
             $ eui_gallery_list = eui.tracks.getlist()
-            $ eui_gallery_rows = eui.gallary_rows(eui_gallery_list)
+            $ eui_gallery_rows = eui.gallery_rows(eui_gallery_list)
 
             viewport:
                 draggable True
@@ -199,7 +199,7 @@ init +2:
             #if CENSOR == True:
             
             $ eui_gallery_list = eui.chcg.getlist()
-            $ eui_gallery_rows = eui.gallary_rows(eui_gallery_list)
+            $ eui_gallery_rows = eui.gallery_rows(eui_gallery_list)
 
             viewport:
                 draggable True
@@ -251,7 +251,7 @@ init +2:
             background None
             
             $ eui_gallery_list = eui.mccg.getlist()
-            $ eui_gallery_rows = eui.gallary_rows(eui_gallery_list)
+            $ eui_gallery_rows = eui.gallery_rows(eui_gallery_list)
 
             viewport:
                 draggable True
@@ -284,7 +284,7 @@ init +2:
             background None
             
             $ eui_gallery_list = eui.bg.getlist()
-            $ eui_gallery_rows = eui.gallary_rows(eui_gallery_list)
+            $ eui_gallery_rows = eui.gallery_rows(eui_gallery_list)
 
             viewport:
                 draggable True
