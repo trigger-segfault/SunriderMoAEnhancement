@@ -5,6 +5,7 @@ init +2:
     # A screen that displays choices to make before beginning Mask of Arcadius
     # route.
     screen history:
+        #TODO: Hotkey (or button) to randomize choices, I hate filling these out every single time
         zorder 500
         
         #if not renpy.showing("bg cera") is True:

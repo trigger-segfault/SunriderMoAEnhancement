@@ -1,4 +1,7 @@
 init python:
+    # Needed for renpy.loadsave function overrides
+    from cStringIO import StringIO
+    from json import dumps as json_dumps
     # Declare the Enhancement Mod UI variables that are not important to remember
     # Extend _object so we're not placed in the Ren'Py store.
     # Our variables will be remembered for the lifespan of the game window
@@ -22,6 +25,8 @@ init python:
             self.show_music = False
             self.show_chivos = False
             self.show_bonus = 0
+
+            self.quicksave_slots = 12
 
             self.mr = MusicRoom(channel='music', fadeout=1.0, fadein=0.0, loop=True, single_track=True, shuffle=False, stop_action=None)
             self.gallery = Gallery()
@@ -126,15 +131,146 @@ init python:
 
             self.setoptions_ypos(self.setoptions)
 
+            # Comment these out if you don't want to overwrite Ren'Py functionality
+            # This fixes autosave cycling and cycling for quicksaves
+            renpy.loadsave.cycle_saves = self.cycle_saves
+            renpy.loadsave.autosave_thread = self.autosave_thread
+
 #endregion
+
+#region ### Gallery Screen Helpers
 
         def gallery_rows(self, list):
             return max(int((len(list) + 2) / 3), 1)
+
+#endregion
+
 #region ### File Screen Helpers
+
+        # Thank you Python, for allowing me to overwrite everyone's hard work so I can fix shit
+
+        # This is designed to fix autosave cycling empty save slots.
+        # The original cycle_saves sometimes results in slot gaps between autosaves for no good reason.
+        def cycle_saves(self, name, count):
+            """
+            :doc: loadsave
+
+            Rotates the first `count` saves beginning with `name`.
+
+            For example, if the name is auto- and the count is 10, then
+            auto-9 will be renamed to auto-10, auto-8 will be renamed to auto-9,
+            and so on until auto-1 is renamed to auto-2.
+            """
+
+            # Hack to fix Ren'Py's hardcoded 10-slot cycle
+            if count == 10:
+                if name == "quick-":
+                    count = self.quicksave_slots
+                elif name == "auto-":
+                    count = config.autosave_slots
+
+            # A simple fix to prevent saves from being pushed when there's no need to push
+            for i in range(1, count):
+                if not renpy.loadsave.can_load(name + str(i)):
+                    count = i
+                    break
+
+            for i in range(count - 1, 0, -1):
+                renpy.loadsave.rename_save(name + str(i), name + str(i + 1))
+
+        # This is the same as renpy.loadsave.save, except we also cycle saves here
+        def save_and_cycle(self, slotname, extra_info='', mutate_flag=False):
+            """
+            :doc: loadsave
+            :args: (filename, extra_info='')
+
+            Saves the game state to a save slot.
+
+            `filename`
+                A string giving the name of a save slot. Despite the variable name,
+                this corresponds only loosely to filenames.
+
+            `extra_info`
+                An additional string that should be saved to the save file. Usually,
+                this is the value of :var:`save_name`.
+
+            :func:`renpy.take_screenshot` should be called before this function.
+            """
+
+            if mutate_flag:
+                renpy.python.mutate_flag = False
+
+            roots = renpy.game.log.freeze(None)
+
+            if renpy.config.save_dump:
+                renpy.loadsave.save_dump(roots, renpy.game.log)
+
+            logf = StringIO()
+            renpy.loadsave.dump((roots, renpy.game.log), logf)
+
+            if mutate_flag and renpy.python.mutate_flag:
+                raise renpy.loadsave.SaveAbort()
+
+            screenshot = renpy.game.interface.get_screenshot()
+
+            json = { "_save_name" : extra_info }
+
+            for i in renpy.config.save_json_callbacks:
+                i(json)
+
+            json = json_dumps(json)
+
+            # We'll put the cycle here, that way we don't push the saves 
+            # and then end up with a failed save and blank space.
+            try:
+                dash_index = slotname.index("-")
+                cycle_name = slotname[:dash_index+1]
+                if cycle_name == "auto-":
+                    self.cycle_saves(cycle_name, renpy.config.autosave_slots)
+                elif cycle_name == "quick-":
+                    self.cycle_saves(cycle_name, self.quicksave_slots)
+                else:
+                    # Might as well use the hardcoded 10 here because we
+                    # have no precedent for setting normal save slot count.
+                    self.cycle_saves(cycle_name, 10)
+            except:
+                pass
+
+            sr = renpy.loadsave.SaveRecord(screenshot, extra_info, json, logf.getvalue())
+            renpy.loadsave.location.save(slotname, sr)
+
+            renpy.loadsave.location.scan()
+            renpy.loadsave.clear_slot(slotname)
+
+        # Change when cycle_saves is called so that we don't
+        # needlessly cycle and end up with empty slots.
+        def autosave_thread(self, take_screenshot):
+
+            try:
+
+                try:
+                    # Uh uh uh, we're doing this in eui.save_and_cycle
+                    #self.cycle_saves("auto-", renpy.config.autosave_slots)
+
+                    if renpy.config.auto_save_extra_info:
+                        extra_info = renpy.config.auto_save_extra_info()
+                    else:
+                        extra_info = ""
+
+                    if take_screenshot:
+                        renpy.exports.take_screenshot(background=True)
+
+                    self.save_and_cycle("auto-1", mutate_flag=True, extra_info=extra_info)
+                    renpy.loadsave.autosave_counter = 0
+
+                except:
+                    pass
+
+            finally:
+                renpy.loadsave.autosave_not_running.set()
 
         # Becuase file pages were normally 8 per page but we use 12 per page,
         # We need to keep the original page number when looking up saves.
-
 
         @property
         def MOA_FILE_COUNT(self):

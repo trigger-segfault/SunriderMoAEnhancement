@@ -1,4 +1,14 @@
+# Why Ren'Py decides to set the autosave slot count at this point, I'll never know
+init +1701 python:
+    # Why is there no config for this?
+    eui.quicksave_slots = 12
+    config.autosave_slots = 12
+
 init +1 python:
+    # FULL HD
+    config.thumbnail_width = 266
+    config.thumbnail_height = 150
+
     #########################################
     ## These settings let you customize the window containing the
     ## dialogue and narration, by replacing it with an image.

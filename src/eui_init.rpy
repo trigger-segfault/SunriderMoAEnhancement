@@ -13,14 +13,10 @@ init +1 python:
     config.label_callback = eui_label_callback
 
 init +1 python:
+    # Remember what file page we're on, even when we switch to "auto" or "quick" pages
+    # We'll remember foreverandeverandeverandever-until you uninstall the mod(?)
     if persistent.eui_file_page == None:
         persistent.eui_file_page = 1
-    config.thumbnail_width = 266
-    config.thumbnail_height = 150
-    #eui_history_box = 0
-
-#init -1 python:
-#    config.overlay_screens.append("quick_menu")
 
 init +1:
     define eui_battle_voice_option = False
@@ -31,12 +27,6 @@ init +1:
         "UI/ctc.png"
         xpos 1800 ypos 1000
 
-    #style upgrade_text is text:
-    #    font "Menu/euphemia.ttf"
-    #    size 22
-    #style upgrade_textbutton is button:
-    #    font "Menu/euphemia.ttf"
-        #size 22
     style upgrade is default:
         font "Menu/euphemia.ttf"
         size 22
@@ -52,8 +42,3 @@ init +1:
     style upgrade_button_text is button_text:
         font "Menu/euphemia.ttf"
         size 22
-
-    #python:
-    #    style.upgrade.set_parent('default')
-    #    style.upgrade.font = "Menu/euphemia.ttf"
-    #    style.upgrade.size = 22
