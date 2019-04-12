@@ -70,7 +70,7 @@ init +2:
             hover tr_hoverglow("UI/menu_qsave.png")
             
             activate_sound "sound/button1.ogg"
-            action (QuickSave(message='                                   Quick save complete.', newest=False),Hide("sidebuttons"),SetField(eui, "show_sidemenu", False))
+            action (QuickSave(message='                                   Quick save complete.', newest=False),Hide("sidebuttons"))#,SetField(eui, "show_sidemenu", False))
             at tr_sidemenu(eui_sidemenu_off)
 
         $ eui_sidemenu_off += eui_sidemenu_inc
@@ -80,7 +80,7 @@ init +2:
             hover tr_hoverglow("UI/eui_menu_qload.png")
             
             activate_sound "sound/button1.ogg"
-            action (QuickLoad(),Hide("sidebuttons"),SetField(eui, "show_sidemenu", False))
+            action (QuickLoad(),FileTakeScreenshot(),Hide("sidebuttons"))#,SetField(eui, "show_sidemenu", False))
             at tr_sidemenu(eui_sidemenu_off)
 
         $ eui_sidemenu_off += eui_sidemenu_inc
@@ -101,7 +101,7 @@ init +2:
             hover tr_hoverglow("UI/menu_load.png")
             
             activate_sound "sound/button1.ogg"
-            action Show("load")
+            action Show("load"),FileTakeScreenshot() # Make sure we have a screenshot for autosaves
             #action If(show_load, true=(Hide("load"),SetVariable("show_load",False)), false=(Show("load"),SetVariable("show_load",True)))
             at tr_sidemenu(eui_sidemenu_off)
 
@@ -155,7 +155,7 @@ init +2:
             hover tr_hoverglow("UI/menu_quit.png")
             
             activate_sound "sound/button1.ogg"
-            action MainMenu(confirm=True)
+            action MainMenu(confirm=True),FileTakeScreenshot() # Make sure we have a screenshot for autosaves
             at tr_sidemenu(eui_sidemenu_off)
 
         $ del eui_sidemenu_off
