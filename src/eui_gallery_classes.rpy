@@ -166,11 +166,6 @@ init -1 python:
             cg = EnhancementModCGItem(self.prefix, self.gallery, self.next_name, thumb, label, parent=parent, conditions=conditions, censor=censor, replay=True, border=border)
             self.cgs.append(cg)
 
-
-        #def transform(self, *transforms):
-        #    self.cgs[len(self.cgs) - 1].transforms = transforms
-        #    self.gallery.transform(transforms)
-
         def find(self, image):
             results = [cg for cg in self.cgs if cg.images[0].image == image]
             if len(results) > 0:
@@ -226,7 +221,7 @@ init -1 python:
                 if not eval(condition):
                     action = None
                     break
-            return EuiImageButton(idle_image="UI/bonus_song_base.png",hover_image="UI/bonus_song_hover.png",action=action,insensitive_image="CG/thumbs/locked.jpg",selected_idle_image="UI/bonus_song_baseplay.png",selected_hover_image="UI/bonus_song_hoverplay.png",hover_sound="Sound/hover1.ogg")
+            return EuiImageButton(idle_image="UI/bonus_song_base.png",hover_image="UI/bonus_song_hover.png",action=action,insensitive_image="CG/thumbs/locked.jpg",selected_idle_image="UI/bonus_song_baseplay.png",selected_hover_image="UI/bonus_song_hoverplay.png",hover_sound="Sound/hover1.ogg",xpos=13,ypos=2)
         
         def is_unlocked(self):
             if len(self.conditions) == 0:
