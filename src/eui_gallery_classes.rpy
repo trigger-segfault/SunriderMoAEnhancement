@@ -6,25 +6,16 @@ init -1 python:
         def make_text(self):
             return Text("")
 
-        #@property
-        #def has_extra(self):
-        #    return False
-        #def make_extra(self):
-        #    return Text("")
+    # Conditions for images really need to better organized.
+    # Right now it's not possible to use both the default unlock and extra conditions,
+    # you also can't use gallery.allprior which is a pretty handy condition.
 
-    class EnhancementModCGItem(_object):
-        def __init__(self, prefix, gallery, name, thumb, images, conditions=[], transforms=[], censor=False, replay=False, border=False):
-            self.gallery = gallery
-            self.name = name
-            if isinstance(thumb, list):
-                # A really stupid way of overriding the default thumb path
-                self.thumb = thumb[0]
-            else:
-                self.thumb = "cg/thumbs/eui/{0}/{1}.jpg".format(prefix,thumb)
-            self.border = border
-            #self.thumb = "cg/thumbs/eui/{0}.jpg".format(thumb)
+    class EuiCG(_object):
+        def __init__(self, images, parent=None, transforms=None, conditions=None):
             if isinstance(images, list):
                 self.images = images
+            elif images is None:
+                self.images = []
             else:
                 self.images = [ images ]
 
@@ -34,6 +25,54 @@ init -1 python:
                 self.conditions = []
             else:
                 self.conditions = [ conditions ]
+
+            self.parent = parent
+
+            if isinstance(transforms, list):
+                self.transforms = transforms
+            elif transforms is None:
+                self.transforms = []
+            else:
+                self.transforms = [ transforms ]
+
+    class EnhancementModCGItem(_object):
+        def __init__(self, prefix, gallery, name, thumb, images, parent=None, conditions=None, transforms=None, censor=False, replay=False, border=False):
+            self.gallery = gallery
+            self.name = name
+            if isinstance(thumb, list):
+                # A really stupid way of overriding the default thumb path
+                self.thumb = thumb[0]
+            else:
+                self.thumb = "cg/thumbs/eui/{0}/{1}.jpg".format(prefix,thumb)
+            self.border = border
+            if isinstance(images, list):
+                self.images = images
+            else:
+                self.images = [ images ]
+
+            # Convert all images to EuiCG
+            for i in range(0, len(self.images)):
+                image = self.images[i]
+                if not isinstance(image, EuiCG):
+                    self.images[i] = EuiCG(image)
+                elif not image.parent is None:
+                    if replay == True:
+                        image.conditions += [ "renpy.seen_label('{0}')".format(image.parent) ]
+                    else:
+                        image.conditions += [ "renpy.seen_image('{0}')".format(image.parent) ]
+
+            if isinstance(conditions, list):
+                self.conditions = conditions
+            elif conditions is None:
+                self.conditions = []
+            else:
+                self.conditions = [ conditions ]
+
+            if not parent is None:
+                if replay == True:
+                    self.conditions += [ "renpy.seen_label('{0}')".format(parent) ]
+                else:
+                    self.conditions += [ "renpy.seen_image('{0}')".format(parent) ]
 
             if isinstance(transforms, list):
                 self.transforms = transforms
@@ -47,7 +86,7 @@ init -1 python:
         @property
         def label(self):
             if self.replay == True:
-                return self.images[0]
+                return self.images[0].images[0]
 
         def make_button(self):
             if self.border == True:
@@ -65,19 +104,34 @@ init -1 python:
                 return Button(action=action, child=self.thumb, insensitive_child="CG/thumbs/locked.jpg",hover_foreground="cg/thumbs/eui/replay_hover.png",idle_foreground=borderimg,hover_sound="Sound/hover1.ogg",activate_sound="Sound/button1.ogg", background=None)
 
         def is_unlocked(self):
-            if replay == False and len(self.conditions) == 0:
-                return renpy.seen_image(self.images[0])
+            for condition in self.conditions:
+                if not eval(condition):
+                    seen_all = False
+                    break
+            if self.replay == False:
+                # I think this is right, haven't tested it yet
+                for imageset in self.images:
+                    seen_all = True
+                    
+                    if len(self.conditions + imageset.conditions) == 0:
+                        for image in imageset.images:
+                            if not renpy.seen_image(image):
+                                seen_all = False
+                                break
+                    else:
+                        for condition in imageset.conditions:
+                            if not eval(condition):
+                                seen_all = False
+                                break
+                    if seen_all == True:
+                        return True
+                return False
             else:
-                for condition in self.conditions:
+                # We shouldn't be defining conditions here for replays, but, whatever
+                for condition in self.images[0].conditions:
                     if not eval(condition):
                         return False
                 return True
-
-        #@property
-        #def has_extra(self):
-        #    return thumb
-        #def make_extra(self):
-        #    return Text("")
 
     # Declare the Enhancement Mod UI variables that are not important to remember
     # Extend _object so we're not placed in the Ren'Py store.
@@ -92,22 +146,24 @@ init -1 python:
         def next_name(self):
             return "{0}{1}".format(self.prefix, len(self.cgs) + 1)
 
-        def add(self, thumb, images, conditions=[], transforms=[], censor=False, border=False):
-            cg = EnhancementModCGItem(self.prefix, self.gallery, self.next_name, thumb, images, conditions=conditions, transforms=transforms, censor=censor, border=border)
+        def add(self, thumb, images, parent=None, conditions=None, transforms=None, censor=False, border=False):
+            cg = EnhancementModCGItem(self.prefix, self.gallery, self.next_name, thumb, images, parent=parent, conditions=conditions, transforms=transforms, censor=censor, border=border)
             self.cgs.append(cg)
             self.gallery.button(cg.name)
-            for image in cg.images:
-                if len(cg.conditions) == 0:
-                    self.gallery.unlock_image(image)
-                else:
-                    self.gallery.image(image)
             for condition in cg.conditions:
                 self.gallery.condition(condition)
-            if len(cg.transforms) != 0:
-                self.gallery.transform(cg.transforms)
+            for image in cg.images:
+                if len(cg.conditions + image.conditions) == 0:
+                    self.gallery.unlock_image(*image.images)
+                else:
+                    self.gallery.image(*image.images)
+                    for condition in image.conditions:
+                        self.gallery.condition(condition)
+                if len(cg.transforms + image.transforms) != 0:
+                    self.gallery.transform(*(cg.transforms + image.transforms))
 
-        def add_replay(self, thumb, label, conditions=[], censor=False, border=False):
-            cg = EnhancementModCGItem(self.prefix, self.gallery, self.next_name, thumb, label, conditions=conditions, censor=censor, replay=True, border=border)
+        def add_replay(self, thumb, label, parent=None, conditions=None, censor=False, border=False):
+            cg = EnhancementModCGItem(self.prefix, self.gallery, self.next_name, thumb, label, parent=parent, conditions=conditions, censor=censor, replay=True, border=border)
             self.cgs.append(cg)
 
 
@@ -116,7 +172,7 @@ init -1 python:
         #    self.gallery.transform(transforms)
 
         def find(self, image):
-            results = [cg for cg in self.cgs if cg.images[0] == image]
+            results = [cg for cg in self.cgs if cg.images[0].image == image]
             if len(results) > 0:
                 return results[0]
             return None
@@ -139,7 +195,7 @@ init -1 python:
             return cglist
 
     class EnhancementModMusicItem(_object):
-        def __init__(self, musicroom, title, filename, conditions=[]):
+        def __init__(self, musicroom, title, filename, parent=None, conditions=None):
             self.mr = musicroom
             self.title = title
             # Fix case sensitivity
@@ -152,6 +208,10 @@ init -1 python:
                 self.conditions = []
             else:
                 self.conditions = [ conditions ]
+
+            # Fix case sensitivity
+            if not parent is None:
+                self.conditions += [ "eui.tracks.is_unlocked('{0}')".format(parent) ]
 
         @property
         def file(self):
@@ -178,9 +238,9 @@ init -1 python:
                 return True
 
         def make_text(self):
-            if not self.mr.is_unlocked(self.file):
+            if not self.is_unlocked():
                 return Text("")
-            return Text(self.title,ysize=10,color="#000000",font="Fonts/SourceCodePro-Regular.ttf",size=15,xalign=0.5,ypos=100,xpos=144,text_align=0.5,xmaxmimum=276)#ypos=100
+            return Text(self.title,ysize=10,color="#000000",font="Fonts/SourceCodePro-Regular.ttf",size=15,xalign=0.5,ypos=100,xpos=144,text_align=0.5,xmaxmimum=276)
 
 
     class EnhancementModMusicGallery(_object):
@@ -188,10 +248,10 @@ init -1 python:
             self.mr = musicroom
             self.tracks = []
 
-        def add(self, title, filename, conditions=[]):
-            track = EnhancementModMusicItem(self.mr, title, filename, conditions=conditions)
+        def add(self, title, filename, parent=None, conditions=None):
+            track = EnhancementModMusicItem(self.mr, title, filename, parent=parent, conditions=conditions)
             self.tracks.append(track)
-            always_unlocked = len(conditions) != 0
+            always_unlocked = len(track.conditions) != 0
             self.mr.add(track.file,always_unlocked=always_unlocked)
 
         def find(self, filename):

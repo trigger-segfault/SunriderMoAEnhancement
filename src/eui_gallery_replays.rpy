@@ -21,6 +21,17 @@ label replay_weddingcrash:
     
     $renpy.end_replay()
 
+label replay_sunrider_vanguard:
+
+    play music "Music/March_of_Immortals.ogg"
+
+    call atkanim_sunrider_vanguard from _call_replay_atkanim_sunrider_vanguard
+
+    # Stop the replay from changing the currently playing menu music
+    stop music fadeout 1.0
+    
+    $renpy.end_replay()
+
 label replay_op:
     
     scene black

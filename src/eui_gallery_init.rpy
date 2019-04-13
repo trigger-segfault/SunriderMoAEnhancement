@@ -3,51 +3,15 @@ init 11:
     # NSFW thumbs that *probably* shouldn't be in a GitHub repo
     if CENSOR == False:
         image eui_thumb_cg_avascene = im.Scale("Censored/avasexcg.jpg", 288, 160, ypos=1)
-            
+
         image eui_thumb_cg_avacg2 = im.Scale("Censored/avasexcg2.jpg", 288, 160, ypos=1)
 
     image eui_thumb_cg_asagashower1 = im.Scale("CG/asagashower1.jpg", 288, 160, ypos=1)
 
-    ###COMPOSITE CG
-    
-    image eui_cg_asaga_awaken_1 = im.Composite(
-        (1920, 1080),
-        (0, 0), "CG/blackjackawaken1.jpg",
-        (0, 0), "CG/asagaawaken1.png")
-        
-    image eui_cg_asaga_awaken_2 = im.Composite(
-        (1920, 1080),
-        (0, 0), "CG/blackjackawaken1.jpg",
-        (0, 0), "CG/asagaawaken2.png")
-
-    image eui_cg_asaga_awaken_3 = im.Composite(
-        (1920, 1080),
-        (0, 0), "CG/blackjackawaken2.jpg",
-        (0, 0), "CG/asagaawaken3.png")
-
 init 11 python:
 
     #########CHARACTER CGS
-        
-    # eui.chcg.add("Episode2_CG2", ["Episode2_CG2","Episode2_CG3"])
-    # #eui.chcg.transform(tr_center)
-    # eui.chcg.add("avateatime", ["avateatime"])
-    # eui.chcg.add("shoujo captain", ["shoujo captain1"])
-    # eui.chcg.add("ryuvianbridge", ["ryuvianbridge","ryuvianbridge_red","ryuvianbridge_empty"])
-    # eui.chcg.add("weddingcrash", ["weddingcrash1","weddingcrash2"])
-    # eui.chcg.add("asagashower", ["asagashower1","asagashower2"], censor=True)
-    # eui.chcg.add("chigarateatimesad", ["chigarateatimesad","chigarateatimeembarassed","chigara_teahappy"])
-    # eui.chcg.add("sola_beach", ["sola_beach","sola_beach_sad","sola_beach_surprise"])
-    # eui.chcg.add("chigarabeach", ["chigarabeach1","chigarabeach2","chigarabeach3"])
-    # eui.chcg.add("chigarahug", ["chigarahug1","chigarahug2"])
-    # eui.chcg.add("ava_classroom", ["ava_classroom"])
-    # eui.chcg.add("marayapprove", ["marayapprove"])
-    # eui.chcg.add("maraygoodbye", ["maraygoodbye"])
-    # eui.chcg.add("avasexcg", ["avasexcg", "avasexcg2"], censor=True)
-    # eui.chcg.add("shieldschigarahug", ["shieldschigarahug"])
-    # eui.chcg.add("avaleverpull", ["avaleverpull1","avaleverpull2"])
-    #eui.chcg.transform(tr_center)
-    
+
     eui.chcg.add("Episode2_CG2", ["cg_epi2_cg2","cg_epi2_cg3"])
     eui.chcg.add("avateatime", ["cg_avateatime"])
     eui.chcg.add("shoujo captain", ["cg_shojocaptain"])
@@ -68,22 +32,36 @@ init 11 python:
     eui.chcg.add(["eui_thumb_cg_avacg2"], ["cg_avacg2"], censor=True, border=True)
     eui.chcg.add("shieldschigarahug", ["cg_shieldschigarahug"])
     eui.chcg.add("avaleverpull", ["cg_avaleverpull1","cg_avaleverpull2"])
-    eui.chcg.add("asagaawaken", ["eui_cg_asaga_awaken_1", "eui_cg_asaga_awaken_2", "eui_cg_asaga_awaken_3"], conditions="renpy.seen_image('cg_asaga_awaken 3')")
-    #Todo: Get Asaga awaken working, figure out background used
-    # ["cg_blackjack_awaken1", "cg_asaga_awaken 1"]
-    # ["cg_blackjack_awaken1", "cg_asaga_awaken 2"]
-    # ["cg_blackjack_awaken2", "cg_asaga_awaken 3"]
+    eui.chcg.add("asagaawaken", [
+        ["cg_blackjack_awaken1","cg_asaga_awaken 1"],
+        ["cg_blackjack_awaken1","cg_asaga_awaken 2"],
+        ["cg_blackjack_awaken2","cg_asaga_awaken 3"]
+    ])
 
 
     #########MECHA CGS
 
-    eui.mccg.add_replay("weddingcrash", "replay_weddingcrash", conditions="renpy.seen_label('theweddingcrash')")
-    eui.mccg.add_replay("OP", "replay_op", conditions="True")
+    #WIP
+
+    eui.mccg.add("sunrider_drydock", ["cg sunrider_drydock"], transforms=tr_pan_right(10.0))
+    eui.mccg.add("mochi", ["cg_mochi 1","cg_mochi 2","cg_mochi 3","cg_mochi 4","cg_mochi 5"])
+    eui.mccg.add("bomberline", ["cg_bomberline"])
+    eui.mccg.add("phoenixpaladin", ["cg_phoenixpaladin"])
+    eui.mccg.add("havoc_tydaria_miss1", ["havoc_tydaria_miss1"])
+    eui.mccg.add("nightmareenter", ["cg_nightmare_enter","cg_nightmare_explode","cg_nightmaredefeated"])
+    eui.mccg.add("blackjack_farport", ["cg_blackjack_farport3","cg_blackjack_farport4","cg_blackjack_farport5","cg_blackjack_farport6"])
+    eui.mccg.add("deflectbullet", ["cg_deflectbullet1","cg_deflectbullet3","cg_deflectbullet4","cg_deflectbullet5"])
+    eui.mccg.add("epi2_cg", [["cg_epi2_cgback","cg_epi2_phoenix"],"cg_epi2_cgset2","cg_epi2_cgset"])
+    eui.mccg.add_replay("weddingcrash", "replay_weddingcrash", parent="theweddingcrash")
+    eui.mccg.add_replay("sunrider_vanguard", "replay_sunrider_vanguard", parent="atkanim_sunrider_vanguard")
+    eui.mccg.add_replay("OP", "replay_op")
 
     ############BACKGROUNDS
 
     eui.bg.add("hangar", ["bg hangar"])
     eui.bg.add("bridge", ["bg bridge","bg bridgered"])
+    # Unused: Always unlocked
+    eui.bg.add("bridgenest", ["bg bridgenest"], conditions="True")
     eui.bg.add("engineering", ["bg engineering"])
     eui.bg.add("messhall", ["bg messhall"])
     eui.bg.add("captainsloft", ["bg captainsloft"])
@@ -94,7 +72,6 @@ init 11 python:
     eui.bg.add("sickbay", ["bg sickbay"])
     eui.bg.add("legionwindows", ["bg legionwindows"])
     eui.bg.add("starpalace", ["bg starpalace"])
-    #TODO: Get bg weddinghall working, this is composed of multiple images
     eui.bg.add("beach1", ["bg beach1"])
     eui.bg.add("beach2", ["bg beach2","bg beach2_night"])
     eui.bg.add("cabin", ["bg logcabin","bg cabinday"])
@@ -107,38 +84,17 @@ init 11 python:
     eui.bg.add("classroom", ["bg classroom","bg classroomnight"])
     eui.bg.add("city", ["bg city"])
     eui.bg.add("apartmentfront", ["bg apartmentfront"])
+    #TODO: Decide if we show this as a background or not at all
+    eui.bg.add("sky", ["cg_sky"])
     eui.bg.add("corebridge", ["bg corebridge"])
     eui.bg.add("balcony", ["bg balcony"])
     eui.bg.add("avaroom", ["bg avaroom"], censor=True) # Only appears with Denpasoft patch
     eui.bg.add("engineroom", ["bg engineroom"])
 
-    # Is this considered a Mecha CG?
-    # scene cg_weddinghall_ceilingspace
-    # show cg_weddinghall_ceiling
-    # with dissolve
-
-    # show cg_weddinghall_sunrider warp behind cg_weddinghall_ceiling:
-    #     zoom 0.7 xanchor 0.5 xpos 0.5 ypos 0.5
-    #     ease 0.1 zoom 1.0 ypos -0.2
-
-    # pause 0.5
-
-    # play sound "sound/large_warpout.ogg"
-
-    # show cg_weddinghall_sunrider behind cg_weddinghall_ceiling
-    # show white:
-    #     alpha 0
-    #     ease 0.2 alpha 0.8
-    #     ease 0.2 alpha 0
-
-    #Never used
-    #eui.bg.add("bridgenest", ["bg bridgenest"])
-
-
     # Other
     #eui.bg.add("asagacorner", ["asagacorner"])
     #Probably won't include deleted scene images
-    
+
     #########MUSIC
 
     eui.tracks.add("A Dark Dream", "A_Dark_Dream")
@@ -152,16 +108,15 @@ init 11 python:
     eui.tracks.add("Driving the Top Down", "Driving_the_Top_Down")
     eui.tracks.add("Dusty Universe", "Dusty_Universe")
     eui.tracks.add("El Prendimiento", "el_prendimiento")
-    #TODO: Make "Firn" unlockable with "Firn_ED"
-    eui.tracks.add("Firn", "Firn", conditions="eui.tracks.is_unlocked('Firn_ED')")
+    eui.tracks.add("Firn", "Firn", parent="Firn_ED")
     eui.tracks.add("Firn (Credits)", "Firn_ED")
     eui.tracks.add("Grasping Some Beauty", "Grasping_Some_Beauty")
     eui.tracks.add("Harunokagayaki", "harunokagayaki")
     eui.tracks.add("Hinokageri", "hinokageri")
     eui.tracks.add("Hinokageri (Orchestra)", "hinokageri_orchestra")
     eui.tracks.add("Honor", "Honor")
-    # Unused
-    #eui.tracks.add("Inhale", "Inhale")
+    # Unused: Always unlocked
+    eui.tracks.add("Inhale (Unused)", "Inhale", conditions="True")
     eui.tracks.add("Intruders", "Intruders")
     eui.tracks.add("Invasion of Chaos", "Invasion of Chaos")
     eui.tracks.add("La Busqueda De Ianna", "La_Busqueda_de_Lanna")
@@ -187,8 +142,8 @@ init 11 python:
     eui.tracks.add("Run Amok", "Run Amok")
     eui.tracks.add("Samfree", "SAMFREE")
     eui.tracks.add("Sora no Senritsu", "Sora_no_Senritsu")
-    # Unused
-    #eui.tracks.add("Space Ace", "Space_Ace")
+    # Unused: Always unlocked
+    eui.tracks.add("Space Ace (Unused)", "Space_Ace", conditions="True")
     eui.tracks.add("Star of Bethlehem", "Star_of_Bethlehem")
     eui.tracks.add("Sui Generis", "Sui_Generis")
     eui.tracks.add("The Tumbrel", "The Tumbrel")

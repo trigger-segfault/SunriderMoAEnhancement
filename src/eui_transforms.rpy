@@ -91,3 +91,16 @@ init -1:
         on hide:
             pause ddelay
             ease 0.3 alpha 0 xpos 860
+
+    transform tr_pan_right(duration):
+        xalign 0.0
+        linear duration xalign 1.0
+    transform tr_pan_left(duration):
+        xalign 1.0
+        linear duration xalign 0.0
+    transform tr_pan_down(duration):
+        yalign 0.0
+        linear duration yalign 1.0
+    transform tr_pan_up(duration):
+        yalign 1.0
+        linear duration yalign 0.0

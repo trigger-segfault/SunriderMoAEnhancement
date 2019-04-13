@@ -2,6 +2,7 @@ init python:
     # Needed for renpy.loadsave function overrides
     from cStringIO import StringIO
     from json import dumps as json_dumps
+
     # Declare the Enhancement Mod UI variables that are not important to remember
     # Extend _object so we're not placed in the Ren'Py store.
     # Our variables will be remembered for the lifespan of the game window
@@ -31,6 +32,7 @@ init python:
             self.mr = MusicRoom(channel='music', fadeout=1.0, fadein=0.0, loop=True, single_track=True, shuffle=False, stop_action=None)
             self.gallery = Gallery()
             self.gallery.transition = dissolve
+            self.gallery.navigation = True # Enable navbar
 
             self.chcg = EnhancementModCGGallery(self.gallery, "chcg")
             self.mccg = EnhancementModCGGallery(self.gallery, "mccg")
@@ -131,7 +133,11 @@ init python:
 
             self.setoptions_ypos(self.setoptions)
 
-            # Comment these out if you don't want to overwrite Ren'Py functionality
+            ## Comment these out if you don't want to overwrite Ren'Py functionality
+
+            # Fixes only panning between locked images instead of unlocked images and vice-versa
+            self.gallery.show = self.gallery_show
+
             # This fixes autosave cycling and cycling for quicksaves
             renpy.loadsave.cycle_saves = self.cycle_saves
             renpy.loadsave.autosave_thread = self.autosave_thread
@@ -142,6 +148,88 @@ init python:
 
         def gallery_rows(self, list):
             return max(int((len(list) + 2) / 3), 1)
+
+        # Fix all_images being swapped with unlocked_images, now you can see if some images are locked
+        def gallery_show(self, button=0, image=0):
+            """
+            Starts showing gallery images.
+
+            `button`
+                The index of the button to start showing.
+            """
+
+            # A list of (button, image) index pairs for all of the images we know
+            # about.
+            all_images = [ ]
+
+            # A list of (button, image) index pairs for all of the unlocked
+            # images.
+            unlocked_images = [ ]
+
+            for bi, b in enumerate(self.gallery.button_list):
+
+                all_unlocked = True
+
+                for ii, i in enumerate(b.images):
+
+                    all_images.append((bi, ii))
+
+                    unlocked = i.check_unlock(all_unlocked)
+
+                    if unlocked:
+                        unlocked_images.append((bi, ii))
+                    else:
+                        all_unlocked = False
+
+            self.gallery.slideshow = False
+
+            # Loop, displaying the images.
+            while True:
+
+                b = self.gallery.button_list[button]
+                i = b.images[image]
+
+                result = i.show((button, image) not in unlocked_images, image, len(b.images))
+
+                # Default action for click.
+
+                if result is True:
+                    result = "next"
+
+                if result == 'return':
+                    break
+
+                # At this point, result is either 'next', "next_unlocked", "previous", or "previous_unlocked"
+                # Go through the common advance code.
+
+                if self.gallery.locked and result.endswith("_unlocked"):
+                    images = unlocked_images
+                else:
+                    images = all_images
+
+                if (button, image) in images:
+                    index = images.index((button, image))
+                else:
+                    index = -1
+
+                if result.startswith('previous'):
+                    index -= 1
+                else:
+                    index += 1
+
+                if index < 0 or index >= len(images):
+                    break
+
+                new_button, new_image = images[index]
+
+                if not self.gallery.span_buttons:
+                    if new_button != button:
+                        break
+
+                button = new_button
+                image = new_image
+
+            renpy.transition(self.gallery.transition)
 
 #endregion
 
