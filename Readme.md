@@ -22,11 +22,12 @@ A mod to update the UI and features of Mask of Arcadius by using Liberation Day 
 ## Work in Progress
 
 * **Bonus Window:** *Cleanup Deleted Scene/Addon Select display.*
-* **Bonus Window:** *Add CG/Backgrounds/Music.*
-* **Quick Menu:** *Lots of work needed to make sure this menu is shown and hidden at the appropriate times.*
+* **Bonus Window:** *Finish compiling and adding Mecha CG*
+
+## For Another Project
+
 * **Battle:** *Integrate a setting for Japanese voices.*
 * **Battle:** *Add a setting for Liberation Day-style battle animations.*
-* **Battle:** *Add Liberation Day-style improved battle interfaces.*
 
 ## Screenshots
 
