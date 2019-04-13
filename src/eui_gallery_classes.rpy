@@ -235,7 +235,7 @@ init -1 python:
         def make_text(self):
             if not self.is_unlocked():
                 return Text("")
-            return Text(self.title,ysize=10,color="#000000",font="Fonts/SourceCodePro-Regular.ttf",size=15,xalign=0.5,ypos=100,xpos=144,text_align=0.5,xmaxmimum=276)
+            return Text(self.title,ysize=10,color="#000000",font="Fonts/SourceCodePro-Regular.ttf",size=15,xalign=0.5,ypos=100,xpos=160,text_align=0.5,xmaxmimum=276)
 
 
     class EnhancementModMusicGallery(_object):
