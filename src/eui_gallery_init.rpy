@@ -163,7 +163,7 @@ init 11 python:
     eui.tracks.add("Battle Against Time", "Battle_Against_Time")
     eui.tracks.add("Boukyou", "boukyou")
     eui.tracks.add("Colors of an Orchestra", "Colors_Of_An_Orchestra")
-    eui.tracks.add("Coming Soon (End)", "Coming_Soon_End")
+    eui.tracks.add("Coming Soon (End)", "Coming_Soon_End", conditions="renpy.seen_label('aftercredits7')")
     eui.tracks.add("Coming Soon (Part 1)", "Coming_Soon_Part1")
     eui.tracks.add("Coming Soon (Part 2)", "Coming_Soon_Part2")
     # Unused: unlock associated track
