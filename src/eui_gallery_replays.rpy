@@ -1,3 +1,53 @@
+label replay_legionwarpin:
+    scene cg_legionwarpin_background with dissolve
+    $ renpy.predict("CG/legionwarpin_full.jpg")
+    $ renpy.predict("CG/legionwarpin_legion_warp.png")
+
+    #play music "Music/Posthumus_Regium.ogg"
+
+    play sound1 "Sound/small_warpout.ogg"
+    show cg_legionwarpin_missilefrigate2 warp:
+        xpos 1940 ypos 200
+        ease 0.05 xpos 300 ypos 200
+    pause 0.05
+    show cg_legionwarpin_missilefrigate_warpflash:
+        xpos 300 ypos 200
+    show cg_legionwarpin_missilefrigate2 out
+    pause 0.15
+    play sound2 "Sound/small_warpout.ogg"
+    show cg_legionwarpin_missilefrigate1 warp:
+        xpos 1940 ypos 800
+        ease 0.05 xpos 700 ypos 900
+    pause 0.05
+    show cg_legionwarpin_missilefrigate_warpflash:
+        xpos 700 ypos 900
+    show cg_legionwarpin_missilefrigate1 out behind cg_legionwarpin_missilefrigate_warpflash
+    pause 0.15
+    play sound3 "Sound/small_warpout.ogg"
+    show cg_legionwarpin_missilefrigate3 warp behind cg_legionwarpin_missilefrigate2:
+        xpos 1950 ypos 100
+        ease 0.05 xpos 975 ypos 100
+    pause 0.05
+    show cg_legionwarpin_missilefrigate_warpflash behind cg_legionwarpin_missilefrigate2:
+        xpos 975 ypos 100
+    show cg_legionwarpin_missilefrigate3 out behind cg_legionwarpin_missilefrigate2
+    pause 0.2
+    play sound4 "Sound/large_warpout.ogg"
+    show cg_legionwarpin_legion warp behind cg_legionwarpin_missilefrigate1:
+        xpos 3000 ypos 600
+        ease 0.2 xpos 970 ypos 600
+    pause 0.2
+    scene cg_legionwarpin_legion_full:
+        xpos 0.505 ypos 0.56
+        pause 1.0
+        ease 0.5 zoom 0.4
+        ease 0.5 zoom 0.42
+    with flash
+    pause 4.0
+    #$ renpy.pause(4)
+
+    $ renpy.end_replay()
+
 label replay_legion_cerafire:
 
     scene legion_cerafire1 with dissolve
@@ -404,6 +454,67 @@ label replay_porkfleet:
     
     $ renpy.end_replay()
 
+label replay_ongress_assaultin:
+
+    scene cg_ongess_carrier_back with dissolve
+
+    play sound "sound/large_warpout.ogg"
+
+    show cg_ongess_carrier_carrier1:
+        xpos 1.0 ypos -0.3
+        ease 0.5 xpos 0.0 ypos 0.0
+    show white:
+        alpha 0
+        pause 0.2
+        ease 0.2 alpha 0.8
+        ease 0.2 alpha 0.0
+
+    pause 2.5
+    # fon "An assault carrier... Swift as a battle cruiser, and supported by a squadron of ryders like a carrier..."
+    # fon "Capable of both lightning strikes and long range operations. Quite impressive, considering it was made by a single Neutral Rim world."
+    # fon "Now, imagine not a single prototype vessel, but an entire fleet of advanced warships built with the resources of all the worlds of the People's Alliance!"
+
+    play sound "sound/large_warpout.ogg"
+    show cg_ongess_carrier_carrier2 behind cg_ongess_carrier_carrier1:
+        xpos 1.0 ypos -0.3
+        ease 0.2 xpos 0.0 ypos 0.0
+    pause 0.4
+
+    play sound1 "sound/large_warpout.ogg"
+    show cg_ongess_carrier_carrier3 behind cg_ongess_carrier_carrier2:
+        xpos 1.0 ypos -0.3
+        ease 0.3 xpos 0.0 ypos 0.0
+
+    pause 0.5
+
+    play sound2 "sound/mechfligh.ogg"
+
+    show cg_ongess_carrier_ryder1:
+        xpos 1.0 ypos -0.3
+        ease 0.5 xpos 0.0 ypos 0.0
+
+    pause 0.4
+
+    show cg_ongess_carrier_ryder2:
+        xpos 1.0 ypos -0.3
+        ease 0.5 xpos 0.0 ypos 0.0
+
+    pause 0.4
+
+    show cg_ongess_carrier_ryder3:
+        xpos 1.0 ypos -0.3
+        ease 0.5 xpos 0.0 ypos 0.0
+
+    pause 0.4
+
+    show cg_ongess_carrier_ryder4:
+        xpos 1.0 ypos -0.3
+        ease 0.5 xpos 0.0 ypos 0.0
+
+    pause 3.0
+
+    $ renpy.end_replay()
+
 label replay_nightmares:
 
     scene cg_nightmares_back with dissolve
@@ -493,26 +604,30 @@ label replay_sunrider_warpout:
         scene tydaria_orbit:
             ypos 0
             ease 1.5 ypos -120
+        with dissolve
     if Random == "asteroid back1":
         scene asteroid back1:
             yanchor 0 ypos 0
             ease 1.5 ypos -200
+        with dissolve
     if Random == "versta_approach":
         scene versta_approach:
             ypos 0
             ease 1.5 ypos -120
+        with dissolve
     if Random == "map_nomodorn":
         scene map_nomodorn:
             ypos 0
             ease 1.5 ypos -120
-    if Replay == "ongess_approach":
+        with dissolve
+    if Random == "ongess_approach":
         scene ongess_approach:
             ypos -400
             ease 1.5 ypos -600
+        with dissolve
     $ del Random
 
-    with dissolve
-    pause 1
+    pause 1.0
 
     show sunrider_warpout_standard out:
         xpos 2300 ypos 1200 zoom 2

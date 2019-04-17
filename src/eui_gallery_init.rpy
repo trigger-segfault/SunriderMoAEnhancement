@@ -22,7 +22,6 @@ init 11 python:
     eui.chcg.add("shoujo captain", ["cg_shojocaptain"])
     eui.chcg.add("ryuvianbridge", ["cg_ryuvianbridge","cg_ryuvianbridge_red","cg_ryuvianbridge_empty"])
     eui.chcg.add("weddingcrash", ["cg_weddingcrash1","cg_weddingcrash2"])
-    #eui.chcg.add("asagashower", ["cg_asagashower1","cg_asagashower2"], censor=True)
     eui.chcg.add(["eui_thumb_cg_asagashower1"], ["cg_asagashower1","cg_asagashower2"], border=True) # No, it appears even when the censor is disabled, no censor. *shrug*
     eui.chcg.add("chigarateatimesad", ["cg_chigarateatime_sad","cg_chigarateatime_embarassed","cg_chigarateatime_happy"])
     eui.chcg.add("sola_beach", ["sola_beach","sola_beach_sad","sola_beach_surprise"])
@@ -31,10 +30,9 @@ init 11 python:
     eui.chcg.add("ava_classroom", ["cg_avaclassroom"])
     eui.chcg.add("marayapprove", ["cg_marayapprove"])
     eui.chcg.add("maraygoodbye", ["cg_maraygoodbye"])
-    #eui.chcg.add("avasexcg", ["cg_avascene"], censor=True)
-    #eui.chcg.add("avasexcg2", ["cg_avacg2"], censor=True)
-    eui.chcg.add(["eui_thumb_cg_avascene"], ["cg_avascene"], censor=True, border=True)
-    eui.chcg.add(["eui_thumb_cg_avacg2"], ["cg_avacg2"], censor=True, border=True)
+    if CENSOR == False:
+        eui.chcg.add(["eui_thumb_cg_avascene"], ["cg_avascene"], censor=True, border=True)
+        eui.chcg.add(["eui_thumb_cg_avacg2"], ["cg_avacg2"], censor=True, border=True)
     eui.chcg.add("shieldschigarahug", ["cg_shieldschigarahug"])
     eui.chcg.add("avaleverpull", ["cg_avaleverpull1","cg_avaleverpull2"])
     eui.chcg.add("asagaawaken", [
@@ -46,69 +44,74 @@ init 11 python:
 
     #########MECHA CGS
 
-    #WIP
+    ###INTRODUCTION
+    eui.mccg.add("sunrider_drydock", ["cg sunrider_drydock"], transforms=tr_pan_right(10.0)) # 133
+    eui.mccg.add("drydock_destroyed", ["cg drydockdestroyed 0","cg drydockdestroyed 1","cg drydockdestroyed 2","cg drydockdestroyed 3","cg drydockdestroyed 4"], transforms=tr_center) # 534
+    eui.mccg.add_replay("legionwarpin", "replay_legionwarpin", parent="cg_legionwarpin_legion_full") # 742
+    eui.mccg.add("legion_cera_fleetfire", ["legion_cera_fleetfire1",["legion_cera_fleetfire1","legion_cera_fleetfire2"]]) # 770
+    eui.mccg.add("cerafleet", ["cerafleet1","cerafleet2"]) # 776
+    eui.mccg.add_replay("legion_cerafire", "replay_legion_cerafire", parent="legion_cerafire7") # 822
+    eui.mccg.add_replay("sunrider_intro", "replay_sunrider_intro", parent="chap1_start") # 918
 
-    eui.mccg.add("sunrider_drydock", ["cg sunrider_drydock"], transforms=tr_pan_right(10.0))
-    eui.mccg.add("drydock_destroyed", ["cg drydockdestroyed 0","cg drydockdestroyed 1","cg drydockdestroyed 2","cg drydockdestroyed 3","cg drydockdestroyed 4"], transforms=tr_center)
+    ###FIRST MISSION PIRATES
+    eui.mccg.add("havoc_tydaria_miss1", ["havoc_tydaria_miss1"]) # 1359
 
-    eui.mccg.add("legion_cera_fleetfire", ["legion_cera_fleetfire1",["legion_cera_fleetfire1","legion_cera_fleetfire2"]])
-    eui.mccg.add("cerafleet", ["cerafleet1","cerafleet2"])
-    eui.mccg.add_replay("legion_cerafire","replay_legion_cerafire",parent="legion_cerafire7")#"chap1_start")
-    eui.mccg.add_replay("sunrider_intro","replay_sunrider_intro",parent="chap1_start")
+    ###RECRUIT IKARI
+    eui.mccg.add("phoenixwarpout",[["space back7","phoenixwarpout"],["space back7","phoenixwarpout laser"]]) # 3798
+    eui.mccg.add("epi2_cg", [["cg_epi2_cgback","cg_epi2_phoenix"],"cg_epi2_cgset2","cg_epi2_cgset",["cg_epi2_cgset","cg_epi2_explode1"],["cg_epi2_cgset","cg_epi2_explode2"],["cg_epi2_cgset","cg_epi2_explode3"]]) # 5095
 
+    ###RECRUIT CLAUD
+    # CG 3 "cg_mochi 3" isn't shown
+    eui.mccg.add("mochi", ["cg_mochi 1","cg_mochi 2",EuiCG("cg_mochi 3", parent="cg_mochi 4"),"cg_mochi 4","cg_mochi 5"]) # 6973
 
-    eui.mccg.add("graveyard",["cg_graveyard"],transforms=tr_pan_graveyard(14.0))
-    eui.mccg.add_replay("graveyard_escape","replay_graveyardescape",parent="cg_graveyardescape3")
-    
-    eui.mccg.add("legionfall", [EuiCG(["cg_legionfallback","eui_cg_legionfall_legion"],parent="cg_legionfallback"),"legionfall_end"])
+    ###RECRUIT SOLA
+    eui.mccg.add("graveyard", ["cg_graveyard"], transforms=tr_pan_graveyard(14.0)) # 7648
+    eui.mccg.add("deflectbullet", ["cg_deflectbullet1","cg_deflectbullet3","cg_deflectbullet4","cg_deflectbullet5"]) # 8026
+    eui.mccg.add_replay("graveyard_escape", "replay_graveyardescape", parent="cg_graveyardescape3") # 8135
 
-    eui.mccg.add("farport_charge", ["cg_farport_charge1"], transforms=tr_pan_right(10.0))
-    eui.mccg.add("pactfleetfarport", ["cg_farport_charge2"], transforms=tr_pan_right(10.0))
-    eui.mccg.add("helion_alliancefleet", ["cg_helionalliancefleet"], transforms=tr_pan_right(10.0))
-    eui.mccg.add("legion_approach", ["cg_legionapproach1","cg_legionapproach2"], transforms=tr_pan_right(4.0))
-    eui.mccg.add("paradoxcore", ["cg_paradoxcore"])
-    eui.mccg.add("ongess_port", ["cg_ongessport1","cg_ongessport2"])
+    ###ASAGA KIDNAP
+    eui.mccg.add_replay("porkfleet_assembled", "replay_porkfleet", parent="portfleet_11c") # 8614
+    eui.mccg.add("asagakidnap_legion", ["cg_asagakidnap_legion",["cg_asagakidnap_legion","cg_asagakidnap_legion_text"]]) # 8740
+    eui.mccg.add("sunrider_afterkidnap", ["cg_sunrider_afterkidnap",["cg_sunrider_afterkidnap","cg_sunrider_afterkidnap_text"]]) # 8827
+    eui.mccg.add_replay("weddingcrash", "replay_weddingcrash", parent="cg_weddinghall_sunrider") # 9963
+    eui.mccg.add("legionsurprise", [["cg_legionsurprise1","cg_legionsurprise_sunrider"],["cg_legionsurprise2","cg_legionsurprise_sunrider"],"cg_legionsurprise3"]) # 10499
 
-    eui.mccg.add("mochi", ["cg_mochi 1","cg_mochi 2","cg_mochi 4","cg_mochi 5"])
-    # CG 3 isn't shown
-    #eui.mccg.add("mochi", ["cg_mochi 1","cg_mochi 2","cg_mochi 3","cg_mochi 4","cg_mochi 5"])
+    ###FARPORT
+    eui.mccg.add("farport_charge", ["cg_farport_charge1"], transforms=tr_pan_right(10.0)) # 12359
+    eui.mccg.add("pactfleetfarport", ["cg_farport_charge2"], transforms=tr_pan_right(10.0)) # 12380
+    eui.mccg.add("legion_farport_fire", ["cg_legion_farport_fire1","cg_legion_farport_fire2","cg_legion_farport_fire3"]) # 12548
+    eui.mccg.add("alliancefleet_farport", ["cg_alliancefleet_farport1","cg_alliancefleet_farport2","cg_alliancefleet_farport3","cg_alliancefleet_farport4","cg_alliancefleet_farport5","cg_alliancefleet_farport6","cg_alliancefleet_farport7"]) # 12563
+    eui.mccg.add("porkdeath", ["cg_porkdeath1","cg_porkdeath2","cg_porkdeath3"]) # 12604
+    eui.mccg.add("blackjack_farport", ["cg_blackjack_farport3","cg_blackjack_farport4","cg_blackjack_farport5","cg_blackjack_farport6"]) # 12622
+    eui.mccg.add_replay("emeraldfleet_warpin", "replay_emeraldfleet_warpin", parent="cg_emeraldfleet_warpin6") # 12766
+    eui.mccg.add("phoenixpaladin", ["cg_phoenixpaladin"]) # 12717
 
-    eui.mccg.add("alliancefleet_farport", ["cg_alliancefleet_farport1","cg_alliancefleet_farport2","cg_alliancefleet_farport3","cg_alliancefleet_farport4","cg_alliancefleet_farport5","cg_alliancefleet_farport6","cg_alliancefleet_farport7"])
-    eui.mccg.add("alliancefleet_helion", ["cg_alliancefleet_helion1","cg_alliancefleet_helion2","cg_alliancefleet_helion3","cg_alliancefleet_helion4"])
-    eui.mccg.add("alliancefleet_legion", ["cg_alliancefleet_legionfire1","cg_alliancefleet_legionfire2","cg_alliancefleet_legionfire3"])
-    eui.mccg.add_replay("emeraldfleet_warpin","replay_emeraldfleet_warpin",parent="cg_emeraldfleet_warpin6")#"after_mission12")
+    ###ONGRESS
+    eui.mccg.add_replay("ongress_assaultin", "replay_ongress_assaultin", parent="cg_ongess_carrier_ryder4") # 18249
+    eui.mccg.add("bomberline", ["cg_bomberline"]) # 18349
+    eui.mccg.add("ongess_port", ["cg_ongessport1","cg_ongessport2"]) # 18404
 
-    eui.mccg.add_replay("porkfleet_assembled","replay_porkfleet",parent="portfleet_11c")#"enoughryuvianknownjewel")
-    eui.mccg.add("porkdeath", ["cg_porkdeath1","cg_porkdeath2","cg_porkdeath3"])
+    ###HELION
+    eui.mccg.add("paradoxcore", ["cg_paradoxcore"]) # 20012
+    #eui.mccg.add("legionfleetagain", ["cg_legionfleetagain","cg_legionapproachfire"]) # 20399
+    # Combine "legionfleetagain" and "alliancefleet_legion" into a single set beacuse they look so similar
+    eui.mccg.add("legionfleetagain", ["cg_legionfleetagain","cg_legionapproachfire","cg_alliancefleet_legionfire1","cg_alliancefleet_legionfire2","cg_alliancefleet_legionfire3"]) # 20399, 21364
+    eui.mccg.add("helion_alliancefleet", ["cg_helionalliancefleet"], transforms=tr_pan_right(10.0)) # 21053
+    eui.mccg.add("legion_approach", ["cg_legionapproach1","cg_legionapproach2"], transforms=tr_pan_right(4.0)) # 21288
+    #eui.mccg.add("alliancefleet_legion", ["cg_alliancefleet_legionfire1","cg_alliancefleet_legionfire2","cg_alliancefleet_legionfire3"]) # 21364
+    eui.mccg.add("alliancefleet_helion", ["cg_alliancefleet_helion1","cg_alliancefleet_helion2","cg_alliancefleet_helion3","cg_alliancefleet_helion4"]) # 21375
 
-    #eui.mccg.add("porkfleet_assembled",["porkfleet_assembled"])
+    ###FINAL STAND
+    eui.mccg.add("sunriderdamage", ["cg_sunriderdamage1","cg_sunriderdamage2","cg_sunriderdamage3","cg_sunriderdamage4","cg_sunriderdamage5"]) # 21582
+    eui.mccg.add("finalstand", ["cg_finalstand1","cg_finalstand2","cg_finalstand3","cg_finalstand4"]) # 21647
+    eui.mccg.add("legionfall", [EuiCG(["cg_legionfallback","eui_cg_legionfall_legion"], parent="cg_legionfallback"),"legionfall_end"]) # 21698
 
-    eui.mccg.add("legion_farport_fire", ["cg_legion_farport_fire1","cg_legion_farport_fire2","cg_legion_farport_fire3"])
-    #eui.mccg.add("legion_cerafire1", ["legion_cerafire1","legion_cerafire2","legion_cerafire3"])
-    #eui.mccg.add("legion_cerafire4", ["legion_cerafire4","legion_cerafire5","legion_cerafire6","legion_cerafire7"], transforms=tr_pan_right(7.0))
-    #eui.mccg.add("cg_legionapproachfire", ["cg_legionapproachfire"])
-    eui.mccg.add("legionfleetagain", ["cg_legionfleetagain","cg_legionapproachfire"])
-    eui.mccg.add("legionsurprise", [["cg_legionsurprise1","cg_legionsurprise_sunrider"],["cg_legionsurprise2","cg_legionsurprise_sunrider"],"cg_legionsurprise3"])
+    ##NIGHTMARES
+    eui.mccg.add("nightmareenter", ["cg_nightmare_enter","cg_nightmare_explode","cg_nightmaredefeated"]) # 21826
+    eui.mccg.add_replay("nightmares","replay_nightmares", parent="cg_nightmares_1") # 21869
 
-    eui.mccg.add("asagakidnap_legion", ["cg_asagakidnap_legion",["cg_asagakidnap_legion","cg_asagakidnap_legion_text"]])
-    eui.mccg.add_replay("weddingcrash", "replay_weddingcrash", parent="cg_weddinghall_sunrider")#"theweddingcrash")
-    eui.mccg.add("sunrider_afterkidnap", ["cg_sunrider_afterkidnap",["cg_sunrider_afterkidnap","cg_sunrider_afterkidnap_text"]])
-
-
-
-    eui.mccg.add("bomberline", ["cg_bomberline"])
-    eui.mccg.add("phoenixpaladin", ["cg_phoenixpaladin"])
-    eui.mccg.add("havoc_tydaria_miss1", ["havoc_tydaria_miss1"])
-    eui.mccg.add("blackjack_farport", ["cg_blackjack_farport3","cg_blackjack_farport4","cg_blackjack_farport5","cg_blackjack_farport6"])
-    eui.mccg.add("deflectbullet", ["cg_deflectbullet1","cg_deflectbullet3","cg_deflectbullet4","cg_deflectbullet5"])
-    eui.mccg.add("epi2_cg", [["cg_epi2_cgback","cg_epi2_phoenix"],"cg_epi2_cgset2","cg_epi2_cgset",["cg_epi2_cgset","cg_epi2_explode1"],["cg_epi2_cgset","cg_epi2_explode2"],["cg_epi2_cgset","cg_epi2_explode3"]])
-
-    eui.mccg.add("sunriderdamage", ["cg_sunriderdamage1","cg_sunriderdamage2","cg_sunriderdamage3","cg_sunriderdamage4","cg_sunriderdamage5"])
-    eui.mccg.add("finalstand", ["cg_finalstand1","cg_finalstand2","cg_finalstand3","cg_finalstand4"])
-    eui.mccg.add("nightmareenter", ["cg_nightmare_enter","cg_nightmare_explode","cg_nightmaredefeated"])
-    eui.mccg.add_replay("nightmares","replay_nightmares",parent="cg_nightmares_1")#"plancomefruition")
-
-    eui.mccg.add_replay("sunrider_warpout","replay_sunrider_warpout",parent="sunrider_warpout_standard out")#"chap1_start")
+    ###MISC
+    eui.mccg.add_replay("sunrider_warpout", "replay_sunrider_warpout", parent="sunrider_warpout_standard out")
     eui.mccg.add_replay("sunrider_vanguard", "replay_sunrider_vanguard", parent="atkanim_sunrider_vanguard")
     eui.mccg.add_replay("OP", "replay_op")
 
@@ -117,7 +120,7 @@ init 11 python:
     eui.bg.add("hangar", ["bg hangar"])
     eui.bg.add("bridge", ["bg bridge","bg bridgered"])
     # Unused: Always unlocked
-    eui.bg.add("bridgenest", ["bg bridgenest"], conditions="True")
+    eui.bg.add("bridgenest", ["bg bridgenest"], parent="bridge")
     eui.bg.add("engineering", ["bg engineering"])
     eui.bg.add("messhall", ["bg messhall"])
     eui.bg.add("captainsloft", ["bg captainsloft"])
@@ -144,7 +147,8 @@ init 11 python:
     eui.bg.add("sky", ["cg_sky"])
     eui.bg.add("corebridge", ["bg corebridge"])
     eui.bg.add("balcony", ["bg balcony"])
-    eui.bg.add("avaroom", ["bg avaroom"], censor=True) # Only appears with Denpasoft patch
+    if CENSOR == False:
+        eui.bg.add("avaroom", ["bg avaroom"], censor=True) # Only appears with Denpasoft patch
     eui.bg.add("engineroom", ["bg engineroom"])
 
     # Other
@@ -159,11 +163,17 @@ init 11 python:
     eui.tracks.add("Battle Against Time", "Battle_Against_Time")
     eui.tracks.add("Boukyou", "boukyou")
     eui.tracks.add("Colors of an Orchestra", "Colors_Of_An_Orchestra")
+    eui.tracks.add("Coming Soon (End)", "Coming_Soon_End")
+    eui.tracks.add("Coming Soon (Part 1)", "Coming_Soon_Part1")
+    eui.tracks.add("Coming Soon (Part 2)", "Coming_Soon_Part2")
+    # Unused: unlock associated track
+    eui.tracks.add("Daydream (Alternate)", "Daydream_Alternate", parent="Daydream_Reprise")
     eui.tracks.add("Daydream (Reprise)", "Daydream_Reprise")
     eui.tracks.add("Daydream (Tides)", "DayDream_Cut") # Not the correct filename casing, but what is used in-game
     eui.tracks.add("Driving the Top Down", "Driving_the_Top_Down")
     eui.tracks.add("Dusty Universe", "Dusty_Universe")
     eui.tracks.add("El Prendimiento", "el_prendimiento")
+    # Unused: unlock associated track
     eui.tracks.add("Firn", "Firn", parent="Firn_ED")
     eui.tracks.add("Firn (Credits)", "Firn_ED")
     eui.tracks.add("Grasping Some Beauty", "Grasping_Some_Beauty")
@@ -171,8 +181,8 @@ init 11 python:
     eui.tracks.add("Hinokageri", "hinokageri")
     eui.tracks.add("Hinokageri (Orchestra)", "hinokageri_orchestra")
     eui.tracks.add("Honor", "Honor")
-    # Unused: Always unlocked
-    eui.tracks.add("Inhale (Unused)", "Inhale", conditions="True")
+    # Unused: Beat the game to unlock
+    eui.tracks.add("Inhale (Unused)", "Inhale", conditions="renpy.seen_label('aftercredits7')")
     eui.tracks.add("Intruders", "Intruders")
     eui.tracks.add("Invasion of Chaos", "Invasion of Chaos")
     eui.tracks.add("La Busqueda De Ianna", "La_Busqueda_de_Lanna")
@@ -198,8 +208,8 @@ init 11 python:
     eui.tracks.add("Run Amok", "Run Amok")
     eui.tracks.add("Samfree", "SAMFREE")
     eui.tracks.add("Sora no Senritsu", "Sora_no_Senritsu")
-    # Unused: Always unlocked
-    eui.tracks.add("Space Ace (Unused)", "Space_Ace", conditions="True")
+    # Unused: Beat the game to unlock
+    eui.tracks.add("Space Ace (Unused)", "Space_Ace", conditions="renpy.seen_label('aftercredits7')")
     eui.tracks.add("Star of Bethlehem", "Star_of_Bethlehem")
     eui.tracks.add("Sui Generis", "Sui_Generis")
     eui.tracks.add("The Tumbrel", "The Tumbrel")
@@ -216,10 +226,3 @@ init 11 python:
     eui.tracks.add("Valve", "Valve")
     eui.tracks.add("Wedding March", "wedding_march")
     eui.tracks.add("World Builder", "WorldBuilder")
-
-
-    # Skipped:
-    # Daydream_Alternate
-    # Coming_Soon_End
-    # Coming_Soon_Part1
-    # Coming_Soon_Part2

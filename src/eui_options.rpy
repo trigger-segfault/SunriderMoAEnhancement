@@ -182,4 +182,4 @@ init +1 python:
     #config.quit_action = ui.gamemenus("_quit_prompt")
     
     # What we do on a game menu invokcation.
-    config.game_menu_action = EuiIfReplay([Function(renpy.music_stop,1.0), EndReplay()],[FileTakeScreenshot(), Show("save")])
+    config.game_menu_action = EuiIfReplay([Function(renpy.music_stop,1.0), Function(eui.stop_afm), EndReplay()],[FileTakeScreenshot(), Show("save")])
