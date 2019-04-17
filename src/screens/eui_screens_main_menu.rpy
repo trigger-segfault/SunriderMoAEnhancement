@@ -83,4 +83,4 @@ init +2:
             hotspot (300, 425, 350, 40):
                 hover_sound "sound/hover1.ogg"
                 activate_sound "sound/button1.ogg"
-                action Show("yesno_prompt", None,"Welcome to the Mask of Arcadius campaign.\nIt is highly suggested that you complete\nthe First Arrival campaign before playing Mask of Arcadius.\nDo you want to continue?", (Hide("yesno_prompt"),Hide("campaigns"),Show("history")), Hide("yesno_prompt"))
+                action Show("yesno_prompt", None,"Welcome to the Mask of Arcadius campaign.\nIt is highly suggested that you complete the First\nArrival campaign before playing Mask of Arcadius.\n\nDo you want to continue?", (Hide("yesno_prompt"),Hide("campaigns"),Show("history")), Hide("yesno_prompt"))
