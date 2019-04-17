@@ -13,7 +13,12 @@ prefix = 'eui'
 srcdir = 'src'
 resdir = 'resources'
 outdir = 'build'
+gamedir = 'game'
+modsdir = 'mods'
+modname = prefix
+rpaprefix = 'mods/eui/'
 ignore_char = '>'
+exts = ['.rpy','.rpyc','.py']
 
 rpas = []
 modules = []
@@ -33,8 +38,13 @@ def renpy_make_clean_file(dstpath):
         os.remove(dstpath)
         print_item('Cleaned', dstpath)
 
-def renpy_make_deploy_file(srcpath, deploydir):
-    dstpath = os.path.join(deploydir, os.path.basename(srcpath))
+def renpy_make_deploy_file(srcpath, relpath, deploydir, basename=False):
+    if relpath is None:
+        relpath = os.path.basename(srcpath)
+    dstpath = os.path.join(deploydir, relpath)
+    parentdir = os.path.abspath(os.path.join(dstpath, os.pardir))
+    if not os.path.isdir(parentdir):
+        os.makedirs(parentdir)
     if not os.path.isfile(dstpath):
         shutil.copy(srcpath, dstpath)
         print_item('Deployed', dstpath)
@@ -51,22 +61,33 @@ def renpy_make_clean_files(deploydir, args):
         if dstpath.endswith('.rpy'):
             renpy_make_clean_file(dstpath + 'c') # Compiled script
 
-def renpy_make_deploy_files(deploydir, args):
+def renpy_make_deploy_files(deploydirgame, deploydirmod, args):
     # Deploy Ren'Py scripts
     for module in modules:
         if not module.is_valid:
             continue
         if args.debug == False:
-            renpy_make_deploy_file(module.build_file, deploydir)
+            renpy_make_deploy_file(module.build_file, None, deploydirmod)
         else:
-            for srcpath in module.source_files:
-                renpy_make_deploy_file(srcpath, deploydir)
+            for srcpath, relpath in zip(module.source_files, module.relative_files):
+                renpy_make_deploy_file(srcpath, relpath, deploydirmod)
 
     # Deploy Ren'Py archives
     for rpa in rpas:
         if not rpa.is_valid:
             continue
-        renpy_make_deploy_file(rpa.build_file, deploydir)
+        if not rpa.is_root:
+            renpy_make_deploy_file(rpa.build_file, None, deploydirgame)
+        else:
+            for respath, relpath in zip(rpa.resource_files, rpa.files):
+                renpy_make_deploy_file(respath, relpath, deploydirmod)
+                # outf = os.path.join(deploydirmod, f)
+                # renpy_make_deploy_file()
+                # parentdir = os.path.abspath(os.path.join(outf, os.pardir))
+                # if os.path.isdir(parentdir):
+                #     os.makedirs(parentdir)
+                # shutil.copy(f, outf)
+            #renpy_make_deploy_file(rpa.build_file, deploydirmod)
 
 def renpy_make_deploy(args):
     if args.clean == True:
@@ -80,17 +101,26 @@ def renpy_make_deploy(args):
             deploydir = deploydir.rstrip()
             if deploydir == '' or deploydir.startswith(ignore_char):
                 continue
-            # Move deploydir to game/
-            deploydir = os.path.join(deploydir, 'game')
+            # Get mods and mod subdirectory
+            deploydirgame = os.path.join(deploydir, gamedir)
+            deploydirmods = os.path.join(deploydirgame, modsdir)
+            deploydirmod = os.path.join(deploydirmods, modname)
+            #deploydirmod = os.path.join(deploydirmods, modname)
+
+            if not os.path.isdir(deploydirmods):
+                os.mkdir(deploydirmods)
+            if not os.path.isdir(deploydirmod):
+                os.mkdir(deploydirmod)
 
             if args.clean == True:
-                print_status('Cleaning in', deploydir)
+                print_status('Cleaning in', deploydirmod)
             else:
-                print_status('Deploying to', deploydir)
+                print_status('Deploying to', deploydirmod)
 
-            renpy_make_clean_files(deploydir, args)
+            #renpy_make_clean_files(deploydirmod, args)
+            shutil.rmtree(deploydirmod)
             if args.deploy == True or args.debug == True:
-                renpy_make_deploy_files(deploydir, args)
+                renpy_make_deploy_files(deploydirgame, deploydirmod, args)
             print()
 
 def renpy_make_compile(args):
@@ -112,7 +142,7 @@ def renpy_make_run(args):
     global rpas
 
     if not os.path.isdir(outdir):
-        os.mkdir(outdir)
+        os.makedirs(outdir)
 
     modules = [RenPyMakeModule()]
     modules += ([
@@ -129,7 +159,7 @@ def renpy_make_run(args):
     # Cleanup build scripts
     for fname in os.listdir(outdir):
         fpath = os.path.join(outdir, fname)
-        if os.path.isfile(fpath) and fpath.endswith('.rpy'):
+        if os.path.isfile(fpath) and (fpath.endswith('.rpy') or fpath.endswith('.py')):
             os.remove(fpath)
 
     # Compile build scripts
@@ -137,15 +167,15 @@ def renpy_make_run(args):
         renpy_make_compile(args)
 
     # Archive build resources
-    if args.build == True or args.deploy == True or args.debug == True:
-        renpy_make_archive(args)
+    #if args.build == True or args.deploy == True or args.debug == True:
+    #    renpy_make_archive(args)
 
     # Deploy build files to output directories
     if args.deploy == True or args.debug == True or args.clean == True:
         renpy_make_deploy(args)
             
     # Finished timestamp
-    print_status('Finished', datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
+    print_status('Finished', datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))
 
 class RenPyMakeRpa(object):
     def __init__(self, existing_file = None):
@@ -176,6 +206,10 @@ class RenPyMakeRpa(object):
     @property
     def is_root(self):
         return self.name == prefix
+    
+    @property
+    def resource_files(self):
+        return [os.path.join(resdir, f) for f in self.files]
 
     @property
     def build_file(self):
@@ -195,7 +229,7 @@ class RenPyMakeRpa(object):
             '../rpatool',
             '-c',
             os.path.join('..', self.build_file)
-        ]) + self.files
+        ]) + ['{0}{1}={1}'.format(rpaprefix, f) for f in self.files]
 
         # Temporarily change the working directory
         cwd = os.getcwd()

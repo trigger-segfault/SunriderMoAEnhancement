@@ -146,6 +146,18 @@ init python:
 
 #region ### Gallery Screen Helpers
 
+        # def toggle_afm(self):
+        #    _preferences.afm_enable = not _preferences.afm_enable
+        #    renpy.restart_interaction()
+
+        def start_afm(self):
+           _preferences.afm_enable = True
+           renpy.restart_interaction()
+
+        def stop_afm(self):
+           _preferences.afm_enable = False
+           renpy.restart_interaction()
+
         def gallery_rows(self, list):
             return max(int((len(list) + 2) / 3), 1)
 

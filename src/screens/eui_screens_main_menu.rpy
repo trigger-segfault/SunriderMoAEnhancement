@@ -29,15 +29,33 @@ init +2:
             ground "Menu/menu_default.jpg"
             idle "Menu/menu_default.jpg"
             #insensitive "Menu/menu_inactive.jpg"
-            insensitive "UI/eui_menu_inactive_bar.jpg"
+            insensitive "mods/eui/UI/menu_inactive_bar.jpg"
             hover "Menu/menu_hover.jpg"
 
-            hotspot (160, 405, 133+ 9+3, 50) action EuiToggleScreen('campaigns', transition=dissolve)
-            hotspot ( 80, 472, 208+14+3, 50) action FileLoad("1", page="auto", confirm=False)
-            hotspot (171, 537, 118+13+3, 50) action ShowMenu('load')
-            hotspot ( 92, 598, 200+10+3, 50) action ShowMenu('preferences')
-            hotspot (138, 666, 151+13+3, 50) action ShowMenu('gallery_back')
-            hotspot (186, 730, 108+ 8+3, 50) action Quit()
+            hotspot (160, 405, 133+ 9+3, 50):
+                hover_sound "sound/hover1.ogg"
+                activate_sound "sound/button1.ogg"
+                action EuiToggleScreen('campaigns', transition=dissolve)
+            hotspot ( 80, 472, 208+14+3, 50):
+                hover_sound "sound/hover1.ogg"
+                activate_sound "sound/button1.ogg"
+                action FileLoad("1", page="auto", confirm=False)
+            hotspot (171, 537, 118+13+3, 50):
+                hover_sound "sound/hover1.ogg"
+                activate_sound "sound/button1.ogg"
+                action ShowMenu('load')
+            hotspot ( 92, 598, 200+10+3, 50):
+                hover_sound "sound/hover1.ogg"
+                activate_sound "sound/button1.ogg"
+                action ShowMenu('preferences')
+            hotspot (138, 666, 151+13+3, 50):
+                hover_sound "sound/hover1.ogg"
+                activate_sound "sound/button1.ogg"
+                action ShowMenu('gallery_back')
+            hotspot (186, 730, 108+ 8+3, 50):
+                hover_sound "sound/hover1.ogg"
+                activate_sound "sound/button1.ogg"
+                action Quit()
 
         text '[config.version]' xpos 0.01 ypos 0.98 size 12
 
@@ -58,5 +76,11 @@ init +2:
             hover "Menu/mainmenu_campaign_hover.png"
             alpha False
             
-            hotspot (300, 385, 230, 40) action Start()
-            hotspot (300, 425, 350, 40) action Show("yesno_prompt", None,"Welcome to the Mask of Arcadius campaign. It is highly suggested that you complete the First Arrival campaign before playing Mask of Arcadius.\nDo you want to continue?", (Hide("yesno_prompt"),Hide("campaigns"),Show("history")), Hide("yesno_prompt"))
+            hotspot (300, 385, 230, 40):
+                hover_sound "sound/hover1.ogg"
+                activate_sound "sound/button1.ogg"
+                action Start()
+            hotspot (300, 425, 350, 40):
+                hover_sound "sound/hover1.ogg"
+                activate_sound "sound/button1.ogg"
+                action Show("yesno_prompt", None,"Welcome to the Mask of Arcadius campaign.\nIt is highly suggested that you complete\nthe First Arrival campaign before playing Mask of Arcadius.\nDo you want to continue?", (Hide("yesno_prompt"),Hide("campaigns"),Show("history")), Hide("yesno_prompt"))

@@ -81,22 +81,22 @@ init +2:
 
             imagebutton:
                 if eui.show_bonus != 5:
-                    idle "UI/eui_bonus_deleted_scenes_base.png"
-                    hover "UI/eui_bonus_deleted_scenes_hover.png"
+                    idle "mods/eui/UI/bonus_deleted_scenes_base.png"
+                    hover "mods/eui/UI/bonus_deleted_scenes_hover.png"
                 else:
-                    idle "UI/eui_bonus_deleted_scenes_selected.png"
-                    hover "UI/eui_bonus_deleted_scenes_selected_hover.png"
+                    idle "mods/eui/UI/bonus_deleted_scenes_selected.png"
+                    hover "mods/eui/UI/bonus_deleted_scenes_selected_hover.png"
                 action If(eui.show_bonus == 5, true=(Hide("gallery_deleted_scenes")), false=(Show("gallery_deleted_scenes"))),ToggleField(eui,"show_bonus",true_value=5,false_value=0)
                 hover_sound "Sound/hover1.ogg"
                 activate_sound "Sound/button1.ogg"
 
             imagebutton:
                 if eui.show_bonus != 6:
-                    idle "UI/eui_bonus_mod_scenes_base.png"
-                    hover "UI/eui_bonus_mod_scenes_hover.png"
+                    idle "mods/eui/UI/bonus_mod_scenes_base.png"
+                    hover "mods/eui/UI/bonus_mod_scenes_hover.png"
                 else:
-                    idle "UI/eui_bonus_mod_scenes_selected.png"
-                    hover "UI/eui_bonus_mod_scenes_selected_hover.png"
+                    idle "mods/eui/UI/bonus_mod_scenes_selected.png"
+                    hover "mods/eui/UI/bonus_mod_scenes_selected_hover.png"
                 action If(eui.show_bonus == 6, true=(Hide("gallery_mod_scenes")), false=(Show("gallery_mod_scenes"))),ToggleField(eui,"show_bonus",true_value=6,false_value=0)
                 hover_sound "Sound/hover1.ogg"
                 activate_sound "Sound/button1.ogg"
@@ -128,7 +128,7 @@ init +2:
             #        activate_sound "Sound/button1.ogg"
 
             #imagebutton:
-            #    idle "UI/eui_bonus_addon_scenes_base.png"
+            #    idle "mods/eui/UI/bonus_addon_scenes_base.png"
             #    hover "UI/bonus_back_hover.png"
             
             #    action Hide("gallery_back"),Hide("gallery_achievements"),Hide("page"),SetVariable("eui.show_charactercg",False),SetVariable("eui.show_chivos",False),SetVariable("eui.show_mechacg",False),SetVariable("eui.show_backgrounds",False),SetVariable("eui.show_music",False)

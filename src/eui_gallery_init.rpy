@@ -8,6 +8,11 @@ init 11:
 
     image eui_thumb_cg_asagashower1 = im.Scale("CG/asagashower1.jpg", 288, 160, ypos=1)
 
+    image eui_cg_legionfall_legion:
+        "CG/legionfall_legion.png"
+        #subpixel True
+        xpos 0.01 ypos -0.1
+
 init 11 python:
 
     #########CHARACTER CGS
@@ -44,15 +49,66 @@ init 11 python:
     #WIP
 
     eui.mccg.add("sunrider_drydock", ["cg sunrider_drydock"], transforms=tr_pan_right(10.0))
-    eui.mccg.add("mochi", ["cg_mochi 1","cg_mochi 2","cg_mochi 3","cg_mochi 4","cg_mochi 5"])
+    eui.mccg.add("drydock_destroyed", ["cg drydockdestroyed 0","cg drydockdestroyed 1","cg drydockdestroyed 2","cg drydockdestroyed 3","cg drydockdestroyed 4"], transforms=tr_center)
+
+    eui.mccg.add("legion_cera_fleetfire", ["legion_cera_fleetfire1",["legion_cera_fleetfire1","legion_cera_fleetfire2"]])
+    eui.mccg.add("cerafleet", ["cerafleet1","cerafleet2"])
+    eui.mccg.add_replay("legion_cerafire","replay_legion_cerafire",parent="legion_cerafire7")#"chap1_start")
+    eui.mccg.add_replay("sunrider_intro","replay_sunrider_intro",parent="chap1_start")
+
+
+    eui.mccg.add("graveyard",["cg_graveyard"],transforms=tr_pan_graveyard(14.0))
+    eui.mccg.add_replay("graveyard_escape","replay_graveyardescape",parent="cg_graveyardescape3")
+    
+    eui.mccg.add("legionfall", [EuiCG(["cg_legionfallback","eui_cg_legionfall_legion"],parent="cg_legionfallback"),"legionfall_end"])
+
+    eui.mccg.add("farport_charge", ["cg_farport_charge1"], transforms=tr_pan_right(10.0))
+    eui.mccg.add("pactfleetfarport", ["cg_farport_charge2"], transforms=tr_pan_right(10.0))
+    eui.mccg.add("helion_alliancefleet", ["cg_helionalliancefleet"], transforms=tr_pan_right(10.0))
+    eui.mccg.add("legion_approach", ["cg_legionapproach1","cg_legionapproach2"], transforms=tr_pan_right(4.0))
+    eui.mccg.add("paradoxcore", ["cg_paradoxcore"])
+    eui.mccg.add("ongess_port", ["cg_ongessport1","cg_ongessport2"])
+
+    eui.mccg.add("mochi", ["cg_mochi 1","cg_mochi 2","cg_mochi 4","cg_mochi 5"])
+    # CG 3 isn't shown
+    #eui.mccg.add("mochi", ["cg_mochi 1","cg_mochi 2","cg_mochi 3","cg_mochi 4","cg_mochi 5"])
+
+    eui.mccg.add("alliancefleet_farport", ["cg_alliancefleet_farport1","cg_alliancefleet_farport2","cg_alliancefleet_farport3","cg_alliancefleet_farport4","cg_alliancefleet_farport5","cg_alliancefleet_farport6","cg_alliancefleet_farport7"])
+    eui.mccg.add("alliancefleet_helion", ["cg_alliancefleet_helion1","cg_alliancefleet_helion2","cg_alliancefleet_helion3","cg_alliancefleet_helion4"])
+    eui.mccg.add("alliancefleet_legion", ["cg_alliancefleet_legionfire1","cg_alliancefleet_legionfire2","cg_alliancefleet_legionfire3"])
+    eui.mccg.add_replay("emeraldfleet_warpin","replay_emeraldfleet_warpin",parent="cg_emeraldfleet_warpin6")#"after_mission12")
+
+    eui.mccg.add_replay("porkfleet_assembled","replay_porkfleet",parent="portfleet_11c")#"enoughryuvianknownjewel")
+    eui.mccg.add("porkdeath", ["cg_porkdeath1","cg_porkdeath2","cg_porkdeath3"])
+
+    #eui.mccg.add("porkfleet_assembled",["porkfleet_assembled"])
+
+    eui.mccg.add("legion_farport_fire", ["cg_legion_farport_fire1","cg_legion_farport_fire2","cg_legion_farport_fire3"])
+    #eui.mccg.add("legion_cerafire1", ["legion_cerafire1","legion_cerafire2","legion_cerafire3"])
+    #eui.mccg.add("legion_cerafire4", ["legion_cerafire4","legion_cerafire5","legion_cerafire6","legion_cerafire7"], transforms=tr_pan_right(7.0))
+    #eui.mccg.add("cg_legionapproachfire", ["cg_legionapproachfire"])
+    eui.mccg.add("legionfleetagain", ["cg_legionfleetagain","cg_legionapproachfire"])
+    eui.mccg.add("legionsurprise", [["cg_legionsurprise1","cg_legionsurprise_sunrider"],["cg_legionsurprise2","cg_legionsurprise_sunrider"],"cg_legionsurprise3"])
+
+    eui.mccg.add("asagakidnap_legion", ["cg_asagakidnap_legion",["cg_asagakidnap_legion","cg_asagakidnap_legion_text"]])
+    eui.mccg.add_replay("weddingcrash", "replay_weddingcrash", parent="cg_weddinghall_sunrider")#"theweddingcrash")
+    eui.mccg.add("sunrider_afterkidnap", ["cg_sunrider_afterkidnap",["cg_sunrider_afterkidnap","cg_sunrider_afterkidnap_text"]])
+
+
+
     eui.mccg.add("bomberline", ["cg_bomberline"])
     eui.mccg.add("phoenixpaladin", ["cg_phoenixpaladin"])
     eui.mccg.add("havoc_tydaria_miss1", ["havoc_tydaria_miss1"])
-    eui.mccg.add("nightmareenter", ["cg_nightmare_enter","cg_nightmare_explode","cg_nightmaredefeated"])
     eui.mccg.add("blackjack_farport", ["cg_blackjack_farport3","cg_blackjack_farport4","cg_blackjack_farport5","cg_blackjack_farport6"])
     eui.mccg.add("deflectbullet", ["cg_deflectbullet1","cg_deflectbullet3","cg_deflectbullet4","cg_deflectbullet5"])
-    eui.mccg.add("epi2_cg", [["cg_epi2_cgback","cg_epi2_phoenix"],"cg_epi2_cgset2","cg_epi2_cgset"])
-    eui.mccg.add_replay("weddingcrash", "replay_weddingcrash", parent="theweddingcrash")
+    eui.mccg.add("epi2_cg", [["cg_epi2_cgback","cg_epi2_phoenix"],"cg_epi2_cgset2","cg_epi2_cgset",["cg_epi2_cgset","cg_epi2_explode1"],["cg_epi2_cgset","cg_epi2_explode2"],["cg_epi2_cgset","cg_epi2_explode3"]])
+
+    eui.mccg.add("sunriderdamage", ["cg_sunriderdamage1","cg_sunriderdamage2","cg_sunriderdamage3","cg_sunriderdamage4","cg_sunriderdamage5"])
+    eui.mccg.add("finalstand", ["cg_finalstand1","cg_finalstand2","cg_finalstand3","cg_finalstand4"])
+    eui.mccg.add("nightmareenter", ["cg_nightmare_enter","cg_nightmare_explode","cg_nightmaredefeated"])
+    eui.mccg.add_replay("nightmares","replay_nightmares",parent="cg_nightmares_1")#"plancomefruition")
+
+    eui.mccg.add_replay("sunrider_warpout","replay_sunrider_warpout",parent="sunrider_warpout_standard out")#"chap1_start")
     eui.mccg.add_replay("sunrider_vanguard", "replay_sunrider_vanguard", parent="atkanim_sunrider_vanguard")
     eui.mccg.add_replay("OP", "replay_op")
 

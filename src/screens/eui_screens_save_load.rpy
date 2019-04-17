@@ -31,8 +31,8 @@ init +2:
                 xpos 565 ypos 50
                 idle "UI/load_default.png"
                 hover tr_hoverglow("UI/load_default.png")          
-                selected_idle "UI/eui_load_default_select.png"
-                selected_hover tr_hoverglow("UI/eui_load_default_select.png")     
+                selected_idle "mods/eui/UI/load_default_select.png"
+                selected_hover tr_hoverglow("mods/eui/UI/load_default_select.png")     
                 action [FilePage(persistent.eui_file_page), SelectedIf(eui.is_file_page())]
                 hover_sound "sound/hover1.ogg"
                 activate_sound "sound/button1.ogg"
@@ -42,8 +42,8 @@ init +2:
                 xpos 754 ypos 50
                 idle "UI/load_auto.png"
                 hover tr_hoverglow("UI/load_auto.png")           
-                selected_idle "UI/eui_load_auto_select.png"
-                selected_hover tr_hoverglow("UI/eui_load_auto_select.png")   
+                selected_idle "mods/eui/UI/load_auto_select.png"
+                selected_hover tr_hoverglow("mods/eui/UI/load_auto_select.png")   
                 action [FilePage("auto"), SelectedIf(eui.file_page_name() == "auto")]
                 hover_sound "sound/hover1.ogg"
                 activate_sound "sound/button1.ogg"
@@ -53,8 +53,8 @@ init +2:
                 xpos 943 ypos 50
                 idle "UI/load_quick.png"
                 hover tr_hoverglow("UI/load_quick.png")            
-                selected_idle "UI/eui_load_quick_select.png"
-                selected_hover tr_hoverglow("UI/eui_load_quick_select.png")  
+                selected_idle "mods/eui/UI/load_quick_select.png"
+                selected_hover tr_hoverglow("mods/eui/UI/load_quick_select.png")  
                 action [FilePage("quick"), SelectedIf(eui.file_page_name() == "quick")]
                 hover_sound "sound/hover1.ogg"
                 activate_sound "sound/button1.ogg"
@@ -73,20 +73,20 @@ init +2:
                 imagebutton:
                     xpos 1118 ypos 98
                     if FilePageName() != "1":
-                        idle "UI/eui_pageup.png"
-                        hover tr_hoverglow("UI/eui_pageup.png")  
+                        idle "mods/eui/UI/pageup.png"
+                        hover tr_hoverglow("mods/eui/UI/pageup.png")  
                         hover_sound "sound/hover1.ogg"
                         activate_sound "sound/button1.ogg" 
                         action (FilePagePrevious(), SetField(persistent, 'eui_file_page', eui.file_page_number() - 1), renpy.save_persistent())
                     else:
-                        idle "UI/eui_pageup_limit.png"
-                        hover tr_hoverglow("UI/eui_pageup_limit.png")        
+                        idle "mods/eui/UI/pageup_limit.png"
+                        hover tr_hoverglow("mods/eui/UI/pageup_limit.png")        
                     focus_mask None
 
                 imagebutton:
                     xpos 1118 ypos 401
-                    idle "UI/eui_pagedown.png"
-                    hover tr_hoverglow("UI/eui_pagedown.png")            
+                    idle "mods/eui/UI/pagedown.png"
+                    hover tr_hoverglow("mods/eui/UI/pagedown.png")            
                     action (FilePageNext(), SetField(persistent, 'eui_file_page', eui.file_page_number() + 1), renpy.save_persistent())
                     hover_sound "sound/hover1.ogg"
                     activate_sound "sound/button1.ogg"
@@ -120,7 +120,7 @@ init +2:
                                 background None
                             
                                 add FileScreenshot(eui.file_slot(i), page=eui.file_page(i)) size(266,150) ypos 1 xpos -7
-                                add "UI/eui_load_nameplate.png"
+                                add "mods/eui/UI/load_nameplate.png"
                                 button:
                                     background None
                                     focus_mask None
@@ -181,8 +181,8 @@ init +2:
                 xpos 565 ypos 50
                 idle "UI/load_default.png"
                 hover tr_hoverglow("UI/load_default.png")          
-                selected_idle "UI/eui_load_default_select.png"
-                selected_hover tr_hoverglow("UI/eui_load_default_select.png")     
+                selected_idle "mods/eui/UI/load_default_select.png"
+                selected_hover tr_hoverglow("mods/eui/UI/load_default_select.png")     
                 action [FilePage(persistent.eui_file_page), SelectedIf(eui.is_file_page())]
                 hover_sound "sound/hover1.ogg"
                 activate_sound "sound/button1.ogg"
@@ -192,8 +192,8 @@ init +2:
                 xpos 754 ypos 50
                 idle "UI/load_auto.png"
                 hover tr_hoverglow("UI/load_auto.png")           
-                selected_idle "UI/eui_load_auto_select.png"
-                selected_hover tr_hoverglow("UI/eui_load_auto_select.png")   
+                selected_idle "mods/eui/UI/load_auto_select.png"
+                selected_hover tr_hoverglow("mods/eui/UI/load_auto_select.png")   
                 action [FilePage("auto"), SelectedIf(eui.file_page_name() == "auto")]
                 hover_sound "sound/hover1.ogg"
                 activate_sound "sound/button1.ogg"
@@ -203,8 +203,8 @@ init +2:
                 xpos 943 ypos 50
                 idle "UI/load_quick.png"
                 hover tr_hoverglow("UI/load_quick.png")            
-                selected_idle "UI/eui_load_quick_select.png"
-                selected_hover tr_hoverglow("UI/eui_load_quick_select.png")  
+                selected_idle "mods/eui/UI/load_quick_select.png"
+                selected_hover tr_hoverglow("mods/eui/UI/load_quick_select.png")  
                 action [FilePage("quick"), SelectedIf(eui.file_page_name() == "quick")]
                 hover_sound "sound/hover1.ogg"
                 activate_sound "sound/button1.ogg"
@@ -223,20 +223,20 @@ init +2:
                 imagebutton:
                     xpos 1118 ypos 98
                     if FilePageName() != "1":
-                        idle "UI/eui_pageup.png"
-                        hover tr_hoverglow("UI/eui_pageup.png")  
+                        idle "mods/eui/UI/pageup.png"
+                        hover tr_hoverglow("mods/eui/UI/pageup.png")  
                         hover_sound "sound/hover1.ogg"
                         activate_sound "sound/button1.ogg" 
                         action (FilePagePrevious(), SetField(persistent, 'eui_file_page', eui.file_page_number() - 1), renpy.save_persistent())
                     else:
-                        idle "UI/eui_pageup_limit.png"
-                        hover tr_hoverglow("UI/eui_pageup_limit.png")        
+                        idle "mods/eui/UI/pageup_limit.png"
+                        hover tr_hoverglow("mods/eui/UI/pageup_limit.png")        
                     focus_mask None
 
                 imagebutton:
                     xpos 1118 ypos 401
-                    idle "UI/eui_pagedown.png"
-                    hover tr_hoverglow("UI/eui_pagedown.png")            
+                    idle "mods/eui/UI/pagedown.png"
+                    hover tr_hoverglow("mods/eui/UI/pagedown.png")            
                     action (FilePageNext(), SetField(persistent, 'eui_file_page', eui.file_page_number() + 1), renpy.save_persistent())
                     hover_sound "sound/hover1.ogg"
                     activate_sound "sound/button1.ogg"
@@ -270,7 +270,7 @@ init +2:
                                 background None
                             
                                 add FileScreenshot(eui.file_slot(i), page=eui.file_page(i)) size(266,150) ypos 1 xpos -7
-                                add "UI/eui_load_nameplate.png"
+                                add "mods/eui/UI/load_nameplate.png"
 
                                 button:
                                     background None

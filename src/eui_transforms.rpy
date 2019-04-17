@@ -104,3 +104,8 @@ init -1:
     transform tr_pan_up(duration):
         yalign 1.0
         linear duration yalign 0.0
+    transform tr_center:
+        xalign 0.5 yalign 0.5
+    transform tr_pan_graveyard(duration):
+        xalign 0.0 yalign 0.0
+        linear duration xalign 1.0 yalign 1.0

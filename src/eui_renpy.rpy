@@ -36,54 +36,92 @@ init -1500 python:
         def get_selected(self):
             return renpy.get_screen(self.screen) is not None
 
-    # For some reason Ren'Py thinks the ImageButton class doesn't exist
-    class EuiImageButton(Button):
-        """
-        Used to implement the guts of an image button.
-        """
+    class EuiIfReplay(Action, DictEquality):
+        def __init__(self,true=None,false=None):
+            self.true = true
+            self.false = false
 
-        def __init__(self,
-                    idle_image,
-                    hover_image,
-                    insensitive_image = None,
-                    activate_image = None,
-                    selected_idle_image = None,
-                    selected_hover_image = None,
-                    selected_insensitive_image = None,
-                    selected_activate_image = None,
-                    style='image_button',
-                    clicked=None,
-                    hovered=None,
-                    **properties):
+        def get_action(self):
+            if not renpy.store._in_replay is None:
+                return self.true
+            else:
+                return self.false
 
-            insensitive_image = insensitive_image or idle_image
-            activate_image = activate_image or hover_image
+        def get_sensitive(self):
+            return renpy.ui.is_sensitive(self.get_action())
 
-            selected_idle_image = selected_idle_image or idle_image
-            selected_hover_image = selected_hover_image or hover_image
-            selected_insensitive_image = selected_insensitive_image or insensitive_image
-            selected_activate_image = selected_activate_image or activate_image
+        def get_selected(self):
+            return renpy.ui.is_selected(self.get_action())
 
-            self.state_children = dict(
-                idle_ = renpy.easy.displayable(idle_image),
-                hover_ = renpy.easy.displayable(hover_image),
-                insensitive_ = renpy.easy.displayable(insensitive_image),
-                activate_ = renpy.easy.displayable(activate_image),
+        def periodic(self):
+            action = self.get_action()
+            if isinstance(action, (list, tuple)):
+                for i in action:
+                    i.periodic()
 
-                selected_idle_ = renpy.easy.displayable(selected_idle_image),
-                selected_hover_ = renpy.easy.displayable(selected_hover_image),
-                selected_insensitive_ = renpy.easy.displayable(selected_insensitive_image),
-                selected_activate_ = renpy.easy.displayable(selected_activate_image),
-                )
+            elif isinstance(action, Action):
+                action.periodic()
 
-            super(EuiImageButton, self).__init__(None,
-                                            style=style,
-                                            clicked=clicked,
-                                            hovered=hovered,
-                                            **properties)
+        def predict(self):
+            action = self.get_action()
+            if isinstance(action, (list, tuple)):
+                for i in action:
+                    i.predict()
 
-        def visit(self):
-            return self.state_children.values()
+            elif isinstance(action, Action):
+                action.predict()
 
-        def get_child(self):
-            return self.style.child or self.state_children[self.style.prefix]
+        def __call__(self):
+            action = self.get_action()
+            if isinstance(action, (list, tuple)):
+                for i in action:
+                    i()
+
+            elif isinstance(action, Action):
+                action()
+
+    class EuiEvalIf(Action, DictEquality):
+
+        def __init__(self,expression,true=None,false=None):
+            self.expression = expression
+            self.true = true
+            self.false = false
+
+        def get_action(self):
+            if eval(self.expression):
+                return self.true
+            else:
+                return self.false
+
+        def get_sensitive(self):
+            return renpy.ui.is_sensitive(self.get_action())
+
+        def get_selected(self):
+            return renpy.ui.is_selected(self.get_action())
+
+        def periodic(self):
+            action = self.get_action()
+            if isinstance(action, (list, tuple)):
+                for i in action:
+                    i.periodic()
+
+            elif isinstance(action, Action):
+                action.periodic()
+
+        def predict(self):
+            action = self.get_action()
+            if isinstance(action, (list, tuple)):
+                for i in action:
+                    i.predict()
+
+            elif isinstance(action, Action):
+                action.predict()
+
+        def __call__(self):
+            action = self.get_action()
+            if isinstance(action, (list, tuple)):
+                for i in action:
+                    i()
+
+            elif isinstance(action, Action):
+                action()

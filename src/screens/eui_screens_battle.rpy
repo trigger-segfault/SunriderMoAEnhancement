@@ -513,172 +513,172 @@ init +2:
                         if BM.weaponhover.name == 'Gravity Gun' and ship.stype != 'Ryder':
                             $skip = True
 
-                        if not skip:
-                            #targeting window
-                            $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.5 * ADJX) + int(zoomlevel * MOVX)
-                            $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.25 * ADJY) + int(zoomlevel * MOVY)
-                            add "Battle UI/eui_targeting_window_libday.png":
+                        # if not skip:
+                        #     #targeting window
+                        #     $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.5 * ADJX) + int(zoomlevel * MOVX)
+                        #     $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.25 * ADJY) + int(zoomlevel * MOVY)
+                        #     add "Battle mods/eui/UI/targeting_window_libday.png":
+                        #         xpos xposition
+                        #         ypos yposition
+                        #         xanchor 0.234
+                        #         yanchor 0.347
+                        #         zoom 0.9
+                                
+                        #     #chance to hit text
+                        #     $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.5 * ADJX) + int(zoomlevel * MOVX)
+                        #     $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.25 * ADJY) + int(zoomlevel * MOVY)
+                        #     text (str(ship.cth) + '%'):
+                        #         xpos xposition -15
+                        #         ypos yposition -25
+                        #         xanchor -1.5
+                        #         yanchor -0.5
+                        #         size (20) # * zoomlevel)
+                        #         min_width 50
+                        #         text_align 1.0
+                        #         color '000'
+                                
+                        #     #effective flak text
+                        #     $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.5 * ADJX) + int(zoomlevel * MOVX)
+                        #     $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.25 * ADJY) + int(zoomlevel * MOVY)
+                        #     if selected == None:  #workarounds
+                        #         $ effective_flak = 0
+                        #     else:
+                        #         if BM.weaponhover.wtype == 'Rocket':
+                        #             #this looks double but missile_eccm is from a ship through upgrades whereas weaponhover.eccm is rom the rocket itself. (default 10)
+                        #             $effective_flak = ship.flak + ship.modifiers['flak'][0] - selected.missile_eccm - BM.weaponhover.eccm
+                        #         else:
+                        #             $effective_flak = ship.flak + ship.modifiers['flak'][0] - selected.missile_eccm
+
+                        #     if effective_flak < 0:
+                        #         $ effective_flak = 0
+                        #     elif effective_flak > 100:
+                        #         $ effective_flak = 100
+
+                        #     text str(effective_flak):
+                        #         xpos xposition -20
+                        #         ypos yposition -25
+                        #         xanchor 0.0
+                        #         yanchor -1.9
+                        #         size (17) # * zoomlevel)
+                        #         min_width 50
+                        #         text_align 1.0
+                        #         color 'fff'
+                                
+                        #     #shield strength
+                        #     $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.5 * ADJX) + int(zoomlevel * MOVX)
+                        #     $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.25 * ADJY) + int(zoomlevel * MOVY)
+                        #     text str(ship.shields):
+                        #         xpos xposition -20
+                        #         ypos yposition -25
+                        #         xanchor -0.85
+                        #         yanchor -1.9
+                        #         size (17) # * zoomlevel)
+                        #         min_width 50
+                        #         text_align 1.0
+                        #         color 'fff'
+                            
+                        #     #armor strength
+                        #     $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.5 * ADJX) + int(zoomlevel * MOVX)
+                        #     $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.25 * ADJY) + int(zoomlevel * MOVY)
+                        #     ##when you hover over a weapon that does kinetic or assault type damage it shows you armor is double as effective
+                        #     if BM.weaponhover == None:
+                        #         $weapon = BM.active_weapon
+                        #     else:
+                        #         $weapon = BM.weaponhover
+                        #     if weapon.wtype == 'Kinetic' or weapon.wtype == 'Assault':
+                        #         text (str(ship.armor) + 'x2'):
+                        #             xpos xposition -20
+                        #             ypos yposition -28
+                        #             xanchor -1.75
+                        #             yanchor -2.1
+                        #             size (15) # * zoomlevel)
+                        #             min_width 50
+                        #             text_align 1.0
+                        #             color 'fff'
+                        #             outlines [(1,'000',0,0)]
+                        #     else:
+                        #         text str(ship.armor):
+                        #             xpos xposition -22
+                        #             ypos yposition -25
+                        #             xanchor -1.6
+                        #             yanchor -1.9
+                        #             size (17) # * zoomlevel)
+                        #             min_width 50
+                        #             text_align 1.0
+                        #             color 'fff'
+
+                        $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.75 * ADJX) + int(zoomlevel * MOVX)
+                        $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.15 * ADJY) + int(zoomlevel * MOVY)
+                        add IC.targeting_window:
+                            xpos xposition
+                            ypos yposition
+                            xanchor 0.5
+                            yanchor 0.5
+                            zoom (zoomlevel/1.3)
+                        $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,.92 * ADJX) + int(zoomlevel * MOVX)
+                        $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,.20 * ADJY) + int(zoomlevel * MOVY)
+                        text (str(ship.cth) + '%'):
+                            xpos xposition
+                            ypos yposition
+                            xanchor 0.5
+                            yanchor 0.5
+                            size (20) # * zoomlevel)
+                            color '000'
+                        $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.75 * ADJX) + int(zoomlevel * MOVX)
+                        $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.40 * ADJY) + int(zoomlevel * MOVY)
+                        if selected == None:  #workarounds
+                            $ effective_flak = 0
+                        else:
+                            if BM.weaponhover.wtype == 'Rocket':
+                                #this looks double but missile_eccm is from a ship through upgrades whereas weaponhover.eccm is rom the rocket itself. (default 10)
+                                $effective_flak = ship.flak + ship.modifiers['flak'][0] - selected.missile_eccm - BM.weaponhover.eccm
+                            else:
+                                $effective_flak = ship.flak + ship.modifiers['flak'][0] - selected.missile_eccm
+
+                        if effective_flak < 0:
+                            $ effective_flak = 0
+                        elif effective_flak > 100:
+                            $ effective_flak = 100
+
+                        text str(effective_flak):
+                            xpos xposition
+                            ypos yposition
+                            xanchor 1.0
+                            yanchor 0.5
+                            size (17) # * zoomlevel)
+                            color 'fff'
+                        $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,.92 * ADJX) + int(zoomlevel * MOVX)
+                        $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,.40 * ADJY) + int(zoomlevel * MOVY)
+                        text str(ship.shields):
+                            xpos xposition
+                            ypos yposition
+                            xanchor 1.0
+                            yanchor 0.5
+                            size (17) # * zoomlevel)
+                            color 'fff'
+                        $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,1.0 * ADJX) + int(zoomlevel * MOVX)
+                        $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.4 * ADJY) + int(zoomlevel * MOVY)
+                        ##when you hover over a weapon that does kinetic or assault type damage it shows you armor is double as effective
+                        if BM.weaponhover == None:
+                            $weapon = BM.active_weapon
+                        else:
+                            $weapon = BM.weaponhover
+                        if weapon.wtype == 'Kinetic' or weapon.wtype == 'Assault':
+                            text (str(ship.armor) + 'x2'):
                                 xpos xposition
                                 ypos yposition
-                                xanchor 0.234
-                                yanchor 0.347
-                                zoom 0.9
-                                
-                            #chance to hit text
-                            $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.5 * ADJX) + int(zoomlevel * MOVX)
-                            $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.25 * ADJY) + int(zoomlevel * MOVY)
-                            text (str(ship.cth) + '%'):
-                                xpos xposition -15
-                                ypos yposition -25
-                                xanchor -1.5
-                                yanchor -0.5
-                                size (20) # * zoomlevel)
-                                min_width 50
-                                text_align 1.0
-                                color '000'
-                                
-                            #effective flak text
-                            $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.5 * ADJX) + int(zoomlevel * MOVX)
-                            $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.25 * ADJY) + int(zoomlevel * MOVY)
-                            if selected == None:  #workarounds
-                                $ effective_flak = 0
-                            else:
-                                if BM.weaponhover.wtype == 'Rocket':
-                                    #this looks double but missile_eccm is from a ship through upgrades whereas weaponhover.eccm is rom the rocket itself. (default 10)
-                                    $effective_flak = ship.flak + ship.modifiers['flak'][0] - selected.missile_eccm - BM.weaponhover.eccm
-                                else:
-                                    $effective_flak = ship.flak + ship.modifiers['flak'][0] - selected.missile_eccm
-
-                            if effective_flak < 0:
-                                $ effective_flak = 0
-                            elif effective_flak > 100:
-                                $ effective_flak = 100
-
-                            text str(effective_flak):
-                                xpos xposition -20
-                                ypos yposition -25
                                 xanchor 0.0
-                                yanchor -1.9
-                                size (17) # * zoomlevel)
-                                min_width 50
-                                text_align 1.0
+                                yanchor 0.5
+                                size (15) # * zoomlevel)
                                 color 'fff'
-                                
-                            #shield strength
-                            $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.5 * ADJX) + int(zoomlevel * MOVX)
-                            $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.25 * ADJY) + int(zoomlevel * MOVY)
-                            text str(ship.shields):
-                                xpos xposition -20
-                                ypos yposition -25
-                                xanchor -0.85
-                                yanchor -1.9
+                        else:
+                            text str(ship.armor):
+                                xpos xposition
+                                ypos yposition
+                                xanchor 0.0
+                                yanchor 0.5
                                 size (17) # * zoomlevel)
-                                min_width 50
-                                text_align 1.0
                                 color 'fff'
-                            
-                            #armor strength
-                            $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.5 * ADJX) + int(zoomlevel * MOVX)
-                            $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.25 * ADJY) + int(zoomlevel * MOVY)
-                            ##when you hover over a weapon that does kinetic or assault type damage it shows you armor is double as effective
-                            if BM.weaponhover == None:
-                                $weapon = BM.active_weapon
-                            else:
-                                $weapon = BM.weaponhover
-                            if weapon.wtype == 'Kinetic' or weapon.wtype == 'Assault':
-                                text (str(ship.armor) + 'x2'):
-                                    xpos xposition -20
-                                    ypos yposition -28
-                                    xanchor -1.75
-                                    yanchor -2.1
-                                    size (15) # * zoomlevel)
-                                    min_width 50
-                                    text_align 1.0
-                                    color 'fff'
-                                    outlines [(1,'000',0,0)]
-                            else:
-                                text str(ship.armor):
-                                    xpos xposition -22
-                                    ypos yposition -25
-                                    xanchor -1.6
-                                    yanchor -1.9
-                                    size (17) # * zoomlevel)
-                                    min_width 50
-                                    text_align 1.0
-                                    color 'fff'
-
-                        # $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.75 * ADJX) + int(zoomlevel * MOVX)
-                        # $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.15 * ADJY) + int(zoomlevel * MOVY)
-                        # add IC.targeting_window:
-                        #     xpos xposition
-                        #     ypos yposition
-                        #     xanchor 0.5
-                        #     yanchor 0.5
-                        #     zoom (zoomlevel/1.3)
-                        # $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,.92 * ADJX) + int(zoomlevel * MOVX)
-                        # $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,.20 * ADJY) + int(zoomlevel * MOVY)
-                        # text (str(ship.cth) + '%'):
-                        #     xpos xposition
-                        #     ypos yposition
-                        #     xanchor 0.5
-                        #     yanchor 0.5
-                        #     size (20) # * zoomlevel)
-                        #     color '000'
-                        # $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,0.75 * ADJX) + int(zoomlevel * MOVX)
-                        # $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.40 * ADJY) + int(zoomlevel * MOVY)
-                        # if selected == None:  #workarounds
-                        #     $ effective_flak = 0
-                        # else:
-                        #     if BM.weaponhover.wtype == 'Rocket':
-                        #         #this looks double but missile_eccm is from a ship through upgrades whereas weaponhover.eccm is rom the rocket itself. (default 10)
-                        #         $effective_flak = ship.flak + ship.modifiers['flak'][0] - selected.missile_eccm - BM.weaponhover.eccm
-                        #     else:
-                        #         $effective_flak = ship.flak + ship.modifiers['flak'][0] - selected.missile_eccm
-
-                        # if effective_flak < 0:
-                        #     $ effective_flak = 0
-                        # elif effective_flak > 100:
-                        #     $ effective_flak = 100
-
-                        # text str(effective_flak):
-                        #     xpos xposition
-                        #     ypos yposition
-                        #     xanchor 1.0
-                        #     yanchor 0.5
-                        #     size (14) # * zoomlevel)
-                        #     color 'fff'
-                        # $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,.92 * ADJX) + int(zoomlevel * MOVX)
-                        # $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,.40 * ADJY) + int(zoomlevel * MOVY)
-                        # text str(ship.shields):
-                        #     xpos xposition
-                        #     ypos yposition
-                        #     xanchor 1.0
-                        #     yanchor 0.5
-                        #     size (14) # * zoomlevel)
-                        #     color 'fff'
-                        # $xposition = dispx(ship.location[0],ship.location[1],zoomlevel,1.0 * ADJX) + int(zoomlevel * MOVX)
-                        # $yposition = dispy(ship.location[0],ship.location[1],zoomlevel,0.4 * ADJY) + int(zoomlevel * MOVY)
-                        # ##when you hover over a weapon that does kinetic or assault type damage it shows you armor is double as effective
-                        # if BM.weaponhover == None:
-                        #     $weapon = BM.active_weapon
-                        # else:
-                        #     $weapon = BM.weaponhover
-                        # if weapon.wtype == 'Kinetic' or weapon.wtype == 'Assault':
-                        #     text (str(ship.armor) + 'x2'):
-                        #         xpos xposition
-                        #         ypos yposition
-                        #         xanchor 0.0
-                        #         yanchor 0.5
-                        #         size (12) # * zoomlevel)
-                        #         color 'fff'
-                        # else:
-                        #     text str(ship.armor):
-                        #         xpos xposition
-                        #         ypos yposition
-                        #         xanchor 0.0
-                        #         yanchor 0.5
-                        #         size (14) # * zoomlevel)
-                        #         color 'fff'
 
 
             #firing the vanguard cannon  [[doesn't seem to be used any more]]

@@ -67,7 +67,7 @@ init +2:
                 
             if eui.option_show == 1:
 
-                add "UI/eui_options_main_text.png"
+                add "mods/eui/UI/options_main_text.png"
 
                 imagebutton:
                     xpos 86 ypos 165
@@ -163,9 +163,9 @@ init +2:
             if eui.option_show == 2:
 
                 if eui_battle_voice_option == True:
-                    add "UI/eui_options_audio_text.png"
+                    add "mods/eui/UI/options_audio_text.png"
                 else:
-                    add "UI/eui_options_audio_text_no_battle_voice.png"
+                    add "mods/eui/UI/options_audio_text_no_battle_voice.png"
 
                 bar:
                     xpos 60
@@ -244,7 +244,7 @@ init +2:
 
             if eui.option_show == 3:
 
-                add "UI/eui_options_gameplay_text.png"
+                add "mods/eui/UI/options_gameplay_text.png"
 
                 default tt = Tooltip("")
 
@@ -436,7 +436,7 @@ init +2:
                 
             if eui.option_show == 1:
 
-                add "UI/eui_options_main_text.png"
+                add "mods/eui/UI/options_main_text.png"
 
                 imagebutton:
                     xpos 86 ypos 165
@@ -532,9 +532,9 @@ init +2:
             if eui.option_show == 2:
 
                 if eui_battle_voice_option == True:
-                    add "UI/eui_options_audio_text.png"
+                    add "mods/eui/UI/options_audio_text.png"
                 else:
-                    add "UI/eui_options_audio_text_no_battle_voice.png"
+                    add "mods/eui/UI/options_audio_text_no_battle_voice.png"
 
                 bar:
                     xpos 60
@@ -613,7 +613,7 @@ init +2:
 
             if eui.option_show == 3:
 
-                add "UI/eui_options_gameplay_text.png"
+                add "mods/eui/UI/options_gameplay_text.png"
 
                 default tt = Tooltip("")
 
@@ -708,13 +708,6 @@ init +2:
                     action ToggleField(BM,"edgescroll",true_value=(100,800), false_value=(0,0))
                     hover_sound "sound/hover1.ogg"
                     activate_sound "sound/button1.ogg"
-
-                #text "{k=0.5}SHOW BATTLE LOG{/k}":
-                #    xpos 590 ypos 340
-                #    font "Fonts/mplus-2p-regular.ttf"
-                #    size 20
-                #    color "#F7F7F7"
-
 
                 imagebutton:
                     xpos 600 ypos 380

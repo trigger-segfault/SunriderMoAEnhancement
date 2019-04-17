@@ -30,6 +30,7 @@ MANIFEST
 *.rpyc
 
 /preview/unused/
+git_mv.py
 
 # Sunrider: Mask of Arcadius
 /sunrider/

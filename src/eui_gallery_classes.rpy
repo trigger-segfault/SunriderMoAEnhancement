@@ -43,7 +43,7 @@ init -1 python:
                 # A really stupid way of overriding the default thumb path
                 self.thumb = thumb[0]
             else:
-                self.thumb = "cg/thumbs/eui/{0}/{1}.jpg".format(prefix,thumb)
+                self.thumb = "mods/eui/cg/thumbs/{0}/{1}.jpg".format(prefix,thumb)
             self.border = border
             if isinstance(images, list):
                 self.images = images
@@ -56,7 +56,7 @@ init -1 python:
                 if not isinstance(image, EuiCG):
                     self.images[i] = EuiCG(image)
                 elif not image.parent is None:
-                    if replay == True:
+                    if renpy.has_label(image.parent):
                         image.conditions += [ "renpy.seen_label('{0}')".format(image.parent) ]
                     else:
                         image.conditions += [ "renpy.seen_image('{0}')".format(image.parent) ]
@@ -68,8 +68,9 @@ init -1 python:
             else:
                 self.conditions = [ conditions ]
 
+            self.parent = parent
             if not parent is None:
-                if replay == True:
+                if renpy.has_label(parent):
                     self.conditions += [ "renpy.seen_label('{0}')".format(parent) ]
                 else:
                     self.conditions += [ "renpy.seen_image('{0}')".format(parent) ]
@@ -90,7 +91,7 @@ init -1 python:
 
         def make_button(self):
             if self.border == True:
-                borderimg = "cg/thumbs/eui/border.png"
+                borderimg = "mods/eui/cg/thumbs/border.png"
             else:
                 borderimg = None
             if self.replay == False:
@@ -101,7 +102,7 @@ init -1 python:
                     if not eval(condition):
                         action = None
                         break
-                return Button(action=action, child=self.thumb, insensitive_child="CG/thumbs/locked.jpg",hover_foreground="cg/thumbs/eui/replay_hover.png",idle_foreground=borderimg,hover_sound="Sound/hover1.ogg",activate_sound="Sound/button1.ogg", background=None)
+                return Button(action=action, child=self.thumb, insensitive_child="CG/thumbs/locked.jpg",hover_foreground="mods/eui/cg/thumbs/replay_hover.png",idle_foreground=borderimg,hover_sound="Sound/hover1.ogg",activate_sound="Sound/button1.ogg", background=None)
 
         def is_unlocked(self):
             for condition in self.conditions:
@@ -221,7 +222,7 @@ init -1 python:
                 if not eval(condition):
                     action = None
                     break
-            return EuiImageButton(idle_image="UI/bonus_song_base.png",hover_image="UI/bonus_song_hover.png",action=action,insensitive_image="CG/thumbs/locked.jpg",selected_idle_image="UI/bonus_song_baseplay.png",selected_hover_image="UI/bonus_song_hoverplay.png",hover_sound="Sound/hover1.ogg",xpos=13,ypos=2)
+            return renpy.display.behavior.ImageButton(idle_image="UI/bonus_song_base.png",hover_image="UI/bonus_song_hover.png",action=action,insensitive_image="CG/thumbs/locked.jpg",selected_idle_image="UI/bonus_song_baseplay.png",selected_hover_image="UI/bonus_song_hoverplay.png",hover_sound="Sound/hover1.ogg",xpos=13,ypos=2)
         
         def is_unlocked(self):
             if len(self.conditions) == 0:

@@ -76,8 +76,8 @@ init +2:
         $ eui_sidemenu_off += eui_sidemenu_inc
 
         imagebutton:
-            idle "UI/eui_menu_qload.png"
-            hover tr_hoverglow("UI/eui_menu_qload.png")
+            idle "mods/eui/UI/menu_qload.png"
+            hover tr_hoverglow("mods/eui/UI/menu_qload.png")
             
             activate_sound "sound/button1.ogg"
             action (QuickLoad(),FileTakeScreenshot(),Hide("sidebuttons"))#,SetField(eui, "show_sidemenu", False))
