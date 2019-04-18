@@ -307,120 +307,147 @@ init +2:
 
 
     screen gallery_deleted_scenes:
-        
+
         tag page
-        
+
         zorder 1300
-        
+
         frame:
             area (245,265,980,700)
             background None
-            
-            $ eui_scene_rows = int((len(scenes) + 2) / 3)
+
+            $ eui_gallery_list = scenes
+            $ eui_gallery_rows = eui.gallery_rows(eui_gallery_list)
 
             viewport:
                 draggable True
                 mousewheel True
                 scrollbars "vertical"
-                child_size (920,eui_scene_rows*169+1)
-            
-                grid 3 max(eui_scene_rows,1):
-                    
+                child_size (920,eui_gallery_rows*169+1)
+
+                grid 3 eui_gallery_rows:
+
                     xfill True
                     yfill True
-                
+
                     if hasattr(store,"BM"):
                         $BM.phase = 'Player' # This is done to make sure that we can open the menu while in a bonus
-                    
-                    for i in range(1, len(scenes) + 1):
-                        $ is_label = renpy.has_label(scenes[i - 1].jumpLoc)
-                        $ eui_scene = scenes[i-1]
+
+                    for eui_bonus in eui_gallery_list:
+                    #for i in range(1, len(scenes) + 1):
+                        #$ eui_bonus = scenes[i-1]
+                        $ eui_bonus_image = EuiBonusItemScale(eui_bonus.image, 286, 160)
+                        $ is_label = renpy.has_label(eui_bonus.jumpLoc)
 
                         frame:
                             style "default"
 
-                            #imagebutton:
-                            #    idle "UI/bonus_song_base.png"
-                            #    hover "UI/bonus_song_hover.png"
-                            #    insensitive "CG/thumbs/locked.jpg"
-                            #    selected_idle "UI/bonus_song_baseplay.png"
-                            #    selected_hover "UI/bonus_song_hoverplay.png"
-                            #    action mr.Play("Music/Anguish.ogg")
-                            #    hover_sound "Sound/hover1.ogg"
-                            #    activate_sound "Sound/button1.ogg"
+                            add "mods/eui/cg/thumbs/bonus_base.png" xpos 1 ypos 1
+                            add eui_bonus_image xpos 14 ypos 83 yanchor 0.5
+                            add "mods/eui/cg/thumbs/bonus_nameplate.png" xpos 1 ypos 1
+
+                            text eui_bonus.text:
+                                xpos 160 ypos 120
+                                xalign 0.5
+                                size 15
+                                ysize 10
+                                color "#F7F7F7"
+                                font "Fonts/SourceCodePro-Regular.ttf"
+                                text_align 0.5
+                                xmaximum 276
+
+                            #add Text(eui_bonus.text,ysize=10,color="#F7F7F7",font="Fonts/SourceCodePro-Regular.ttf",size=15,xalign=0.5,ypos=122,xpos=160,text_align=0.5,xmaximum=276)
 
                             imagebutton:
-                                idle (scenes[i - 1].image)
-                                hover tr_hoverglow(scenes[i - 1].image)
-                                at zoom_button(scenes[i - 1].zoom)
-                                #at zoom (scenes[i - 1].zoom)
-                                action If(is_label, true = [Hide('gallery_back'),SetField(eui,"show_bonus",0),Start(scenes[i - 1].jumpLoc)], false = [Hide('gallery_back'),SetField(eui,"show_bonus",0),ShowMenu(scenes[i - 1].jumpLoc)])
-                                hover_sound "Sound/hover1.ogg"
-                                activate_sound "Sound/button1.ogg"
-
-                            text scenes[i - 1].text ysize 10 color "#F7F7F7" font "Fonts/SourceCodePro-Regular.ttf" size 15 xalign 0.5 ypos 100
+                                xpos 13 ypos 2
+                                idle renpy.display.layout.Null(288,162)#"mods/eui/cg/thumbs/addon_empty.png"
+                                hover "mods/eui/cg/thumbs/bonus_hover.png"
+                                #hover "CG/thumbs/hover.png"
+                                hover_sound "sound/hover1.ogg"
+                                activate_sound "sound/button1.ogg"
+                                action If(is_label,true=[Hide('gallery_back'),SetField(eui,"show_bonus",0),Start(eui_bonus.jumpLoc)],false=[Hide('gallery_back'),SetField(eui,"show_bonus",0),ShowMenu(eui_bonus.jumpLoc)])
+                            # color "#F7F7F7"
+                            #text eui_bonus.text ysize 10 color "#202020" font "Fonts/SourceCodePro-Regular.ttf" size 15 xalign 0.5 ypos 100
+                            #text eui_bonus.text ysize 10 color "#202020" font "Fonts/SourceCodePro-Regular.ttf" size 15 xalign 0.5 ypos 120
 
                         $ del is_label
-                        $ del eui_scene
-                    for i in range(len(scenes),max(eui_scene_rows,1)*3):
+                        $ del eui_bonus_image
+
+                    for i in range(len(eui_gallery_list),eui_gallery_rows*3):
                         text ""
-            $ del eui_scene_rows      
+
+            $ del eui_gallery_list
+            $ del eui_gallery_rows
 
     screen gallery_mod_scenes:
-        
+
         tag page
-        
+
         zorder 1300
-        
+
         frame:
             area (245,265,980,700)
             background None
-            
-            $ eui_addon_rows = int((len(addon_scenes) + 2) / 3)
+
+            $ eui_gallery_list = addon_scenes
+            $ eui_gallery_rows = eui.gallery_rows(eui_gallery_list)
 
             viewport:
                 draggable True
                 mousewheel True
                 scrollbars "vertical"
-                child_size (920,eui_addon_rows*169+1)
+                child_size (920,eui_gallery_rows*169+1)
             
-                grid 3 max(eui_addon_rows,1):
-                    
+                grid 3 eui_gallery_rows:
+
                     xfill True
                     yfill True
-                
+
                     if hasattr(store,"BM"):
                         $BM.phase = 'Player' # This is done to make sure that we can open the menu while in a bonus
-                    
-                    for i in range(1, len(addon_scenes) + 1):
-                        $ is_label = renpy.has_label(addon_scenes[i - 1].jumpLoc)
-                        $ eui_addon = addon_scenes[i-1]
+
+                    for eui_bonus in eui_gallery_list:
+                    #for i in range(1, len(addon_scenes) + 1):
+                        #$ eui_bonus = addon_scenes[i-1]
+                        $ eui_bonus_image = EuiBonusItemScale(eui_bonus.image, 286, 160)
+                        $ is_label = renpy.has_label(eui_bonus.jumpLoc)
 
                         frame:
                             style "default"
 
-                            #imagebutton:
-                            #    idle "UI/bonus_song_base.png"
-                            #    hover "UI/bonus_song_hover.png"
-                            #    insensitive "CG/thumbs/locked.jpg"
-                            #    selected_idle "UI/bonus_song_baseplay.png"
-                            #    selected_hover "UI/bonus_song_hoverplay.png"
-                            #    action mr.Play("Music/Anguish.ogg")
-                            #    hover_sound "Sound/hover1.ogg"
-                            #    activate_sound "Sound/button1.ogg"
+                            add "mods/eui/cg/thumbs/bonus_base.png" xpos 1 ypos 1
+                            add eui_bonus_image xpos 14 ypos 83 yanchor 0.5
+                            add "mods/eui/cg/thumbs/bonus_nameplate.png" xpos 1 ypos 1
+
+                            text eui_bonus.text:
+                                xpos 160 ypos 120
+                                xalign 0.5
+                                size 15
+                                ysize 10
+                                color "#F7F7F7"
+                                font "Fonts/SourceCodePro-Regular.ttf"
+                                text_align 0.5
+                                xmaximum 276
+
+                            #add Text(eui_bonus.text,ysize=10,color="#F7F7F7",font="Fonts/SourceCodePro-Regular.ttf",size=15,xalign=0.5,ypos=122,xpos=160,text_align=0.5,xmaximum=276)
 
                             imagebutton:
-                                idle (addon_scenes[i - 1].image)
-                                hover tr_hoverglow(addon_scenes[i - 1].image)
-                                at zoom_button(addon_scenes[i - 1].zoom)
-                                action If(is_label, true = [Hide('gallery_back'),SetField(eui,"show_bonus",0),Start(addon_scenes[i - 1].jumpLoc)], false = [Hide('gallery_back'),SetField(eui,"show_bonus",0),ShowMenu(addon_scenes[i - 1].jumpLoc)])
-                                hover_sound "Sound/hover1.ogg"
-                                activate_sound "Sound/button1.ogg"
-
-                            text addon_scenes[i - 1].text ysize 10 color "#F7F7F7" font "Fonts/SourceCodePro-Regular.ttf" size 15 xalign 0.5 ypos 100
+                                xpos 13 ypos 2
+                                idle renpy.display.layout.Null(288,162)#"mods/eui/cg/thumbs/addon_empty.png"
+                                hover "mods/eui/cg/thumbs/bonus_hover.png"
+                                #hover "CG/thumbs/hover.png"
+                                hover_sound "sound/hover1.ogg"
+                                activate_sound "sound/button1.ogg"
+                                action If(is_label,true=[Hide('gallery_back'),SetField(eui,"show_bonus",0),Start(eui_bonus.jumpLoc)],false=[Hide('gallery_back'),SetField(eui,"show_bonus",0),ShowMenu(eui_bonus.jumpLoc)])
+                            # color "#F7F7F7"
+                            #text eui_bonus.text ysize 10 color "#202020" font "Fonts/SourceCodePro-Regular.ttf" size 15 xalign 0.5 ypos 100
+                            #text eui_bonus.text ysize 10 color "#202020" font "Fonts/SourceCodePro-Regular.ttf" size 15 xalign 0.5 ypos 120
 
                         $ del is_label
-                        $ del eui_addon
-                    for i in range(len(addon_scenes),max(eui_addon_rows,1)*3):
+                        $ del eui_bonus_image
+
+                    for i in range(len(eui_gallery_list),eui_gallery_rows*3):
                         text ""
-            $ del eui_addon_rows                   
+
+            $ del eui_gallery_list
+            $ del eui_gallery_rows

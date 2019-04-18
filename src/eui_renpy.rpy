@@ -125,3 +125,73 @@ init -1500 python:
 
             elif isinstance(action, Action):
                 action()
+
+    class EuiProportionalScale(im.ImageBase):
+        def __init__(self, imgname, maxwidth, maxheight, bilinear=True, **properties):
+            img = im.image(imgname)
+            super(EuiProportionalScale, self).__init__(img, maxwidth, maxheight, bilinear, **properties)
+            self.imgname = imgname
+            self.image = img
+            self.maxwidth = maxwidth
+            self.maxheight = maxheight
+            self.bilinear = bilinear
+
+        def load(self):
+            surf = im.cache.get(self.image)
+            width, height = surf.get_size()
+            
+            ratio = min(self.maxwidth/float(width), self.maxheight/float(height))
+            width = int(round(ratio * width))
+            height = int(round(ratio * height))
+            
+            if self.bilinear:
+                try:
+                    renpy.display.render.blit_lock.acquire()
+                    rv = renpy.display.scale.smoothscale(surf, (width, height))
+                finally:
+                    renpy.display.render.blit_lock.release()
+            else:
+                try:
+                    renpy.display.render.blit_lock.acquire()
+                    rv = renpy.display.pgrender.transform_scale(surf, (width, height))
+                finally:
+                    renpy.display.render.blit_lock.release()
+            return rv
+
+        def predict_files(self):
+            return self.image.predict_files()
+
+    class EuiBonusItemScale(im.ImageBase):
+        def __init__(self, imgname, maxwidth, maxheight, bilinear=True, **properties):
+            img = im.Image(imgname)
+            super(EuiBonusItemScale, self).__init__(img, maxwidth, maxheight, bilinear, **properties)
+            self.imgname = imgname
+            self.image = img
+            self.maxwidth = maxwidth
+            self.maxheight = maxheight
+            self.bilinear = bilinear
+
+        def load(self):
+            surf = im.cache.get(self.image)
+            width, height = surf.get_size()
+            
+            ratio = self.maxwidth / float(width)
+            width = int(round(ratio * width))
+            height = int(round(ratio * height))
+            
+            if self.bilinear:
+                try:
+                    renpy.display.render.blit_lock.acquire()
+                    rv = renpy.display.scale.smoothscale(surf, (width, height))
+                finally:
+                    renpy.display.render.blit_lock.release()
+            else:
+                try:
+                    renpy.display.render.blit_lock.acquire()
+                    rv = renpy.display.pgrender.transform_scale(surf, (width, height))
+                finally:
+                    renpy.display.render.blit_lock.release()
+            return rv.subsurface((0, 0, min(rv.get_width(), self.maxwidth), min(rv.get_height(), self.maxheight)))
+
+        def predict_files(self):
+            return self.image.predict_files()

@@ -18,6 +18,9 @@ init +1 python:
     if persistent.eui_file_page == None:
         persistent.eui_file_page = 1
 
+#init 100 python:
+#    addon_scenes.append(BonusItem("cg_epi2_cg2","My Test Addon","start",1))
+
 init +1:
     define eui_battle_voice_option = False
     define eui_battle_voice_object = None

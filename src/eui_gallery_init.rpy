@@ -115,12 +115,13 @@ init 11 python:
     eui.mccg.add_replay("sunrider_vanguard", "replay_sunrider_vanguard", parent="atkanim_sunrider_vanguard")
     eui.mccg.add_replay("OP", "replay_op")
 
+
     ############BACKGROUNDS
 
     eui.bg.add("hangar", ["bg hangar"])
     eui.bg.add("bridge", ["bg bridge","bg bridgered"])
-    # Unused: Always unlocked
-    eui.bg.add("bridgenest", ["bg bridgenest"], parent="bridge")
+    # Unused: Unlock bridge to see
+    eui.bg.add("bridgenest", ["bg bridgenest"], parent="bg bridge")
     eui.bg.add("engineering", ["bg engineering"])
     eui.bg.add("messhall", ["bg messhall"])
     eui.bg.add("captainsloft", ["bg captainsloft"])
