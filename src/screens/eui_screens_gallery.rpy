@@ -337,6 +337,7 @@ init +2:
                     #for i in range(1, len(scenes) + 1):
                         #$ eui_bonus = scenes[i-1]
                         $ eui_bonus_image = EuiBonusItemScale(eui_bonus.image, 286, 160)
+                        #$ eui_bonus_image = EuiBonusItemRender(eui_bonus.image, 286, 160)
                         $ is_label = renpy.has_label(eui_bonus.jumpLoc)
 
                         frame:
@@ -410,6 +411,7 @@ init +2:
                     #for i in range(1, len(addon_scenes) + 1):
                         #$ eui_bonus = addon_scenes[i-1]
                         $ eui_bonus_image = EuiBonusItemScale(eui_bonus.image, 286, 160)
+                        #$ eui_bonus_image = EuiBonusItemRender(eui_bonus.image, 286, 160)
                         $ is_label = renpy.has_label(eui_bonus.jumpLoc)
 
                         frame:

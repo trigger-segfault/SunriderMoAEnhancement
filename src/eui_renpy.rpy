@@ -163,7 +163,7 @@ init -1500 python:
 
     class EuiBonusItemScale(im.ImageBase):
         def __init__(self, imgname, maxwidth, maxheight, bilinear=True, **properties):
-            img = im.Image(imgname)
+            img = Image(imgname)
             super(EuiBonusItemScale, self).__init__(img, maxwidth, maxheight, bilinear, **properties)
             self.imgname = imgname
             self.image = img
@@ -195,3 +195,113 @@ init -1500 python:
 
         def predict_files(self):
             return self.image.predict_files()
+
+    class EuiBonusItemRender(renpy.Displayable):
+        def __init__(self, imgname, maxwidth, maxheight, bilinear=True, **properties):
+            renpy.Displayable.__init__(self, **properties)
+            #self.mod = mod
+            #self.zoom = mod.zoom
+            #self.image = mod#renpy.easy.displayable(mod.image)
+            self.image = renpy.displayable(imgname)
+            self.maxwidth = maxwidth
+            self.maxheight = maxheight
+            self.bilinear = bilinear
+
+        def render(self, width, height, st, sa):
+
+            image_render = renpy.render(self.image, width, height, st, sa)
+            image_width, image_height = image_render.get_size()
+
+            render = renpy.Render(image_width, image_height)
+            render.blit(image_render, (0, 0))
+
+            surf = render.render_to_texture()
+            
+            ratio = self.maxwidth / float(image_width)
+            self.width = int(round(ratio * image_width))
+            self.height = int(round(ratio * image_height))
+
+            if self.bilinear:
+                try:
+                    renpy.display.render.blit_lock.acquire()
+                    rv = renpy.display.scale.smoothscale(surf, (width, height))
+                finally:
+                    renpy.display.render.blit_lock.release()
+            else:
+                try:
+                    renpy.display.render.blit_lock.acquire()
+                    rv = renpy.display.pgrender.transform_scale(surf, (width, height))
+                finally:
+                    renpy.display.render.blit_lock.release()
+            return rv.subsurface((0, 0, min(rv.get_width(), self.maxwidth), min(rv.get_height(), self.maxheight)))
+    # class EuiBonusItemRender(renpy.Displayable):
+    #     def __init__(self, imgname, maxwidth, maxheight, bilinear=True, **properties):
+    #         renpy.Displayable.__init__(self, **properties)
+    #         #self.mod = mod
+    #         #self.zoom = mod.zoom
+    #         #self.image = mod#renpy.easy.displayable(mod.image)
+    #         self.image = renpy.displayable(imgname)
+    #         self.maxwidth = maxwidth
+    #         self.maxheight = maxheight
+    #         self.bilinear = bilinear
+
+    #     def render(self, width, height, st, sa):
+
+    #         image_render = renpy.render(self.image, width, height, st, sa)
+    #         image_width, image_height = image_render.get_size()
+
+    #         render = renpy.Render(image_width, image_height)
+    #         surf.blit(image_render, (0, 0))
+            
+    #         ratio = self.maxwidth / float(image_width)
+    #         self.width = int(round(ratio * image_width))
+    #         self.height = int(round(ratio * image_height))
+
+    #         if self.bilinear:
+    #             try:
+    #                 renpy.display.render.blit_lock.acquire()
+    #                 rv = renpy.display.scale.smoothscale(surf, (width, height))
+    #             finally:
+    #                 renpy.display.render.blit_lock.release()
+    #         else:
+    #             try:
+    #                 renpy.display.render.blit_lock.acquire()
+    #                 rv = renpy.display.pgrender.transform_scale(surf, (width, height))
+    #             finally:
+    #                 renpy.display.render.blit_lock.release()
+    #         return rv.subsurface((0, 0, min(rv.get_width(), self.maxwidth), min(rv.get_height(), self.maxheight)))
+
+            # Create the render we will return.
+            #render = renpy.Render(width, height)
+
+            # t = Transform(child=self.image,size=(self.width,self.height))
+
+            # child_render = renpy.render(t, width, height, st, sa)
+
+            # # Create the render we will return.
+            # render = renpy.Render(self.width, self.height)
+
+            # # Blit (draw) the child's render to our render.
+            # render.blit(child_render, (0, 0))
+
+            # # Return the render.
+            # return render
+
+
+            
+            # if self.bilinear:
+            #     try:
+            #         renpy.display.render.blit_lock.acquire()
+            #         rv = renpy.display.scale.smoothscale(surf, (width, height))
+            #     finally:
+            #         renpy.display.render.blit_lock.release()
+            # else:
+            #     try:
+            #         renpy.display.render.blit_lock.acquire()
+            #         rv = renpy.display.pgrender.transform_scale(surf, (width, height))
+            #     finally:
+            #         renpy.display.render.blit_lock.release()
+            # return rv.subsurface((0, 0, min(rv.get_width(), self.maxwidth), min(rv.get_height(), self.maxheight)))
+            #newwidth, newheight = child_render.get_size()
+
+            
