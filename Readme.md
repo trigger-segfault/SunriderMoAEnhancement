@@ -13,9 +13,11 @@ A mod to update the UI and features of Mask of Arcadius by using Liberation Day 
 
 Copy the contents of the `SunriderMoAEnhancement` folder inside the zip to `%INSTALLDIR%`, say yes when merging folders.
 
-> Use of this mod requires that you own a copy of Sunrider: Liberation Day. Mask of Arcadius Enhancement will not function unless you copy and rename `%LIBDAY%/game/archive.rpa` to `%MASKOFARCADIUS%/game/libday.rpa`. Any new name is valid, but it must **not** be `archive.rpa`, as this is used by the Denpasoft patch.
+> Use of this mod requires that you own a copy of Sunrider: Liberation Day. Mask of Arcadius Enhancement Mod will not function unless you copy and rename `%LIBDAY%/game/archive.rpa` to `%MASKOFARCADIUS%/game/libday.rpa`. Any new name is valid, but it must **not** be `archive.rpa`, as this is used by the Denpasoft patch.
 
 ### Uninstallation
+
+First remove the `%INSTALLDIR%/game/mods/eui` folder.
 
 After uninstalling the mod, any saves creating during mod-use will be too large for the save window and stretch off the screen. To fix this, use the other supplied download: `SunriderMoAEnhancementRestore`. Copy the contents of the `SunriderMoAEnhancement` folder inside the zip to `%INSTALLDIR%`, say yes when merging folders. This is a fix that contains one file, the purpose is to overwrite the save screen with a copy that resizes the save thumbnails to stay inside the window.
 
