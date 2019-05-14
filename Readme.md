@@ -4,8 +4,8 @@
 [![Latest Release Date](https://img.shields.io/github/release-date-pre/trigger-segfault/SunriderMoAEnhancement.svg?style=flat&label=released)](https://github.com/trigger-segfault/SunriderMoAEnhancement/releases/latest)
 [![Total Downloads](https://img.shields.io/github/downloads/trigger-segfault/SunriderMoAEnhancement/total.svg?style=flat)](https://github.com/trigger-segfault/SunriderMoAEnhancement/releases)
 [![Creation Date](https://img.shields.io/badge/created-april%202019-A642FF.svg?style=flat)](https://github.com/trigger-segfault/SunriderMoAEnhancement/commit/5bd85d70639683ba405c5645b91f93b5976ad32e)
+[![Love in Space Forums](https://img.shields.io/badge/love%20in%20space-forums-C75051.svg?style=flat)](http://forum.loveinspace.moe/thread/634/mask-arcadius-ui-enhancement-modn)
 [![Discord](https://img.shields.io/discord/436949335947870238.svg?style=flat&logo=discord&label=chat&colorB=7389DC&link=https://discord.gg/vB7jUbY)](https://discord.gg/vB7jUbY)
-<!--[![Love in Space Forums](https://img.shields.io/badge/love%20in%20space-forums-C75051.svg?style=flat)](http://forum.loveinspace.moe/thread/631/sunrider-academy-purevn-activity-completion)-->
 
 A mod to update the UI and features of Mask of Arcadius by using Liberation Day resources for an all around better viewing experience.
 
