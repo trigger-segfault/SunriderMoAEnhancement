@@ -13,7 +13,7 @@ init python:
         # The version of this MoA Enhancement UI mod file
         @property
         def version(self):
-            return 'v0.0.0.1' # Constant
+            return 'v1.0.0.0' # Constant
 
 #region ### Constructor
 

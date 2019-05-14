@@ -19,24 +19,14 @@ init +2:
     #         hover "Map/back_button_hover.png"
 
     screen galaxymap_buttons: ###################################GALAXY MAP BUTTONS
-    # Now, picked planets are set to GM_selected so they can be traced by screen code
-    # Planets have .missions attribute that can be used to set missions to appear.
-    # A default setting will let planets gen their own mission select options
+        # Now, picked planets are set to GM_selected so they can be traced by screen code
+        # Planets have .missions attribute that can be used to set missions to appear.
+        # A default setting will let planets gen their own mission select options
 
         modal True
         #tag galaxy_map
 
         key "mousedown_4" action NullAction()
-
-        Planet("CERA", "warpto_OccupiedCera", 1297, 480, "warpto_occupiedcera")
-        Planet("TYDARIA", "warpto_Tydaria", 1390, 540, "warpto_tydaria")
-        Planet("ASTRAL EXPANSE", "warpto_astralexpanse", 1250, 540, "warpto_astralexpanse")
-        Planet("PACT Outpost", "warpto_pactstation", 1420, 480, "warpto_pactstation1")
-        Planet("VERSTA", "warpto_versta", 1490, 725, "warpto_versta")
-        Planet("NOMODORN", "warpto_nomodorn", 1630, 590, "warpto_nomodorn")
-        Planet("RYUVIA PRIME", "warpto_ryuvia", 1410, 740, "warpto_ryuvia")
-        Planet("FAR PORT", "warpto_farport", 1260, 776, "warpto_farport")
-        Planet("ONGESS", "warpto_ongess", 1345, 655, "warpto_ongess")
 
         for planet in planets:
             if planet.shouldShowOnMap():
