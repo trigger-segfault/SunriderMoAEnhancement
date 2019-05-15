@@ -95,7 +95,7 @@ init -1 python:
             else:
                 borderimg = None
             if self.replay == False:
-                return self.gallery.make_button(self.name, self.thumb, locked="cg/thumbs/locked.jpg",hover_border="cg/thumbs/hover.png", idle_border=borderimg, hover_sound="Sound/hover1.ogg",activate_sound="Sound/button1.ogg", background=None)
+                return self.gallery.make_button(self.name, self.thumb, locked="CG/thumbs/locked.jpg",hover_border="CG/thumbs/hover.png", idle_border=borderimg, hover_sound="Sound/hover1.ogg",activate_sound="Sound/button1.ogg", background=None)
             else:
                 action = Replay(self.label, locked=False)
                 for condition in self.conditions:

@@ -16,7 +16,7 @@ outdir = 'build'
 gamedir = 'game'
 modsdir = 'mods'
 modname = prefix
-rpaprefix = 'mods/eui/'
+rpaprefix = 'mods/eui'
 ignore_char = '>'
 exts = ['.rpy','.rpyc','.py']
 
@@ -180,6 +180,7 @@ def renpy_make_run(args):
 class RenPyMakeRpa(object):
     def __init__(self, existing_file = None):
         self.files = []
+        self.roots = []
         self.name = prefix
         self.is_existing = False
         if existing_file is None:
@@ -198,18 +199,26 @@ class RenPyMakeRpa(object):
             if relpath == '.':
                 frelpath = fname
 
-            if os.path.isfile(fpath) and (fname.endswith('.png') or fname.endswith('.jpg')):
+            if os.path.isfile(fpath) and not fname.endswith('.rpa'):
                 self.files.append(frelpath)
+                if relpath == '.':
+                    self.roots.append(frelpath)
             elif os.path.isdir(fpath):
                 self.traverse_files(frelpath)
+                if relpath == '.':
+                    self.roots.append(frelpath)
 
     @property
     def is_root(self):
         return self.name == prefix
-    
+
     @property
     def resource_files(self):
         return [os.path.join(resdir, f) for f in self.files]
+
+    @property
+    def resource_roots(self):
+        return [os.path.join(resdir, r) for r in self.roots]
 
     @property
     def build_file(self):
@@ -219,6 +228,9 @@ class RenPyMakeRpa(object):
     def is_valid(self):
         return len(self.files) != 0 or self.is_existing
 
+    def format_file(self, f):
+        return '{0}={1}'.format(os.path.join(rpaprefix, f), os.path.join(resdir, f))
+
     def archive(self):
         if os.path.isfile(self.build_file):
             os.remove(self.build_file)
@@ -226,18 +238,14 @@ class RenPyMakeRpa(object):
         print_status('Archiving', self.build_file)
         rpaargs = ([
             sys.executable,
-            '../rpatool',
+            'rpatool',
             '-c',
             os.path.join('..', self.build_file)
-        ]) + ['{0}{1}={1}'.format(rpaprefix, f) for f in self.files]
+        ]) + [self.format_file(r) for r in self.roots]
 
-        # Temporarily change the working directory
-        cwd = os.getcwd()
         for frelpath in self.files:
             print_item('Packing', frelpath)
-        os.chdir(resdir)
         subprocess.Popen(rpaargs, shell=True).wait()
-        os.chdir(cwd)
 
         if not os.path.isfile(self.build_file):
             print_status('Archiving of file failed', self.name)
