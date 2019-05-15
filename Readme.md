@@ -4,7 +4,7 @@
 [![Latest Release Date](https://img.shields.io/github/release-date-pre/trigger-segfault/SunriderMoAEnhancement.svg?style=flat&label=released)](https://github.com/trigger-segfault/SunriderMoAEnhancement/releases/latest)
 [![Total Downloads](https://img.shields.io/github/downloads/trigger-segfault/SunriderMoAEnhancement/total.svg?style=flat)](https://github.com/trigger-segfault/SunriderMoAEnhancement/releases)
 [![Creation Date](https://img.shields.io/badge/created-april%202019-A642FF.svg?style=flat)](https://github.com/trigger-segfault/SunriderMoAEnhancement/commit/5bd85d70639683ba405c5645b91f93b5976ad32e)
-<!--[![Love in Space Forums](https://img.shields.io/badge/love%20in%20space-forums-C75051.svg?style=flat)](http://forum.loveinspace.moe/thread/631/sunrider-academy-purevn-activity-completion)-->
+[![Love in Space Forums](https://img.shields.io/badge/love%20in%20space-forums-C75051.svg?style=flat)](http://forum.loveinspace.moe/thread/634/mask-arcadius-ui-enhancement-modn)
 [![Discord](https://img.shields.io/discord/436949335947870238.svg?style=flat&logo=discord&label=chat&colorB=7389DC&link=https://discord.gg/vB7jUbY)](https://discord.gg/vB7jUbY)
 
 A mod to update the UI and features of Mask of Arcadius by using Liberation Day resources for an all around better viewing experience.
@@ -13,9 +13,11 @@ A mod to update the UI and features of Mask of Arcadius by using Liberation Day 
 
 Copy the contents of the `SunriderMoAEnhancement` folder inside the zip to `%INSTALLDIR%`, say yes when merging folders.
 
-> Use of this mod requires that you own a copy of Sunrider: Liberation Day. Mask of Arcadius Enhancement will not function unless you copy and rename `%LIBDAY%/game/archive.rpa` to `%MASKOFARCADIUS%/game/libday.rpa`. Any new name is valid, but it must **not** be `archive.rpa`, as this is used by the Denpasoft patch.
+> Use of this mod requires that you own a copy of Sunrider: Liberation Day. Mask of Arcadius Enhancement Mod will not function unless you copy and rename `%LIBDAY%/game/archive.rpa` to `%MASKOFARCADIUS%/game/libday.rpa`. Any new name is valid, but it must **not** be `archive.rpa`, as this is used by the Denpasoft patch.
 
 ### Uninstallation
+
+First remove the `%INSTALLDIR%/game/mods/eui` folder.
 
 After uninstalling the mod, any saves creating during mod-use will be too large for the save window and stretch off the screen. To fix this, use the other supplied download: `SunriderMoAEnhancementRestore`. Copy the contents of the `SunriderMoAEnhancement` folder inside the zip to `%INSTALLDIR%`, say yes when merging folders. This is a fix that contains one file, the purpose is to overwrite the save screen with a copy that resizes the save thumbnails to stay inside the window.
 
